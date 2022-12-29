@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thirumanam/Auth/Register_Auth.dart';
-import 'package:thirumanam/Home/Home_page.dart';
+import 'package:thirumanam/views//Home/Home_page.dart';
 import 'package:thirumanam/widget/bezierContainer.dart';
 
 class LoginPage extends StatefulWidget {

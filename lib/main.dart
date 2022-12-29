@@ -8,7 +8,7 @@ import 'package:thirumanam/Auth/Welcome_auth.dart';
 // import 'package:thirumanam/Auth/cursal.dart';
 // import 'package:thirumanam/Auth/drawer.dart';
 // import 'package:thirumanam/Auth/ss.dart';
-import 'package:thirumanam/Home/Home_page.dart';
+import 'package:thirumanam/views//Home/Home_page.dart';
 import 'package:thirumanam/stories/homepage.dart';
 import 'package:thirumanam/widget/quardentic_curve.dart';
 

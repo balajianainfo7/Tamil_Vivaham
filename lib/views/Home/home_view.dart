@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../widget/size_config.dart';
+import 'package:thirumanam/widget/size_config.dart';
 
 // String token = "";
 class HomePageView extends StatefulWidget {
