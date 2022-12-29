@@ -32,36 +32,43 @@ class _BottomNavState extends State<BottomNav> {
         body: Center(
           child: tabItems[_selectedIndex],
         ),
-        bottomNavigationBar: FlashyTabBar(
-          backgroundColor: Colors.white,
-          animationCurve: Curves.easeInBack,
-          selectedIndex: _selectedIndex,
-          iconSize: 30,
-          
-          showElevation: false, // use this to remove appBar's elevation
-          onItemSelected: (index) => setState(() {
-            _selectedIndex = index;
-          }),
-          items: [
-            FlashyTabBarItem(
-              title: Text('Home', style: TextStyle(color: Color(0xFF134FAF),),),
-              icon: Icon(Icons.home, color: Color(0xFF134FAF),),
-              
-            ),
-            FlashyTabBarItem(
-              icon: Icon(Icons.play_circle, color: Color(0xFF134FAF),),
-              title: Text('Story', style: TextStyle(color: Color(0xFF134FAF),),),
-            ),
-            FlashyTabBarItem(
-              icon: Icon(Icons.emoji_people, color: Color(0xFF134FAF),),
-              title: Text('MemberShip', style: TextStyle(color: Color(0xFF134FAF),),),
-            ),
-            FlashyTabBarItem(
-              icon: Icon(Icons.group, color: Color(0xFF134FAF),),
-              title: Text('Happy Story', style: TextStyle(color: Color(0xFF134FAF),),),
-            ),
+        bottomNavigationBar: ClipRRect(
+           borderRadius: BorderRadius.only(
+        topRight: Radius.circular(40),
+        topLeft: Radius.circular(40),
+      ),
+          child: FlashyTabBar(
             
-          ],
+            backgroundColor: Colors.white,
+            animationCurve: Curves.easeInBack,
+            selectedIndex: _selectedIndex,
+            iconSize: 30,
+            
+            showElevation: false, // use this to remove appBar's elevation
+            onItemSelected: (index) => setState(() {
+              _selectedIndex = index;
+            }),
+            items: [
+              FlashyTabBarItem(
+                title: Text('Home', style: TextStyle(color: Color(0xFF134FAF),),),
+                icon: Icon(Icons.home, color: Color(0xFF134FAF),),
+                
+              ),
+              FlashyTabBarItem(
+                icon: Icon(Icons.play_circle, color: Color(0xFF134FAF),),
+                title: Text('Story', style: TextStyle(color: Color(0xFF134FAF),),),
+              ),
+              FlashyTabBarItem(
+                icon: Icon(Icons.emoji_people, color: Color(0xFF134FAF),),
+                title: Text('MemberShip', style: TextStyle(color: Color(0xFF134FAF),),),
+              ),
+              FlashyTabBarItem(
+                icon: Icon(Icons.group, color: Color(0xFF134FAF),),
+                title: Text('Happy Story', style: TextStyle(color: Color(0xFF134FAF),),),
+              ),
+              
+            ],
+          ),
         ),
       ),
     );

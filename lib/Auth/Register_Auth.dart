@@ -1,27 +1,67 @@
 import 'dart:convert';
+
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:thirumanam/Auth/Register_Auth.dart';
-import 'package:thirumanam/views//Home/Home_page.dart';
-import 'package:thirumanam/widget/bezierContainer.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:validators/validators.dart';
 
-class StepperRegister extends StatefulWidget {
-  StepperRegister({Key? key, this.title}) : super(key: key);
+import '../Auth/Home_list_page.dart';
+import '../Navigation/drawer.dart';
 
-  final String? title;
-
+class RegisterAuth extends StatefulWidget {
   @override
-  _StepperRegisterState createState() => _StepperRegisterState();
+  _RegisterAuthState createState() => _RegisterAuthState();
 }
 
-class _StepperRegisterState extends State<StepperRegister> {
+class _RegisterAuthState extends State<RegisterAuth> {
+  
+  RegExp _float1 =
+    new RegExp(r'^-?[0-9\.+\/]+$');
+    bool isHeight(String str) {
+  return _float1.hasMatch(str);
+}
 
+RegExp _float2 =
+    new RegExp(r'^-?[0-9+\/]+$');
+    bool isDoor(String str) {
+  return _float2.hasMatch(str);
+}
+RegExp _float3 =
+    new RegExp(r'^-?[a-zA-Z\.]+$');
+    bool isFather(String str) {
+  return _float3.hasMatch(str);
+}
 
+RegExp _float4 =
+    new RegExp(r'^-?[a-zA-Z\.]+$');
+    bool isMother(String str) {
+  return _float4.hasMatch(str);
+}
+
+  var email = false.obs;
+  bool isFNameCorrect = false;
+  bool isLNameCorrect = false;
+  bool isEmailCorrect = false;
+  bool isDoorCorrect = false;
+  bool isStreetCorrect = false;
+  bool isAreaCorrect = false;
+  bool isheightCorrect = false;
+  bool isweightCorrect = false;
+  bool ishobbiesCorrect = false;
+  bool ischildCorrect = false;
+  bool isStatusCorrect = false;
+  bool isworkingCorrect = false;
+  bool iscompanyCorrect = false;
+  bool isIncomeCorrect = false;
+  bool isdoshamCorrect = false;
+  bool isFathernameCorrect = false;
+  bool isFatherOcuupationCorrect = false;
+  bool isMname = false;
+  bool isMOcuupationCorrect = false;
   final countryPicker = const FlCountryCodePicker();
   CountryCode? countryCode;
   String dropdownValue = 'Myself';
@@ -92,7 +132,7 @@ class _StepperRegisterState extends State<StepperRegister> {
 
   late String Idcard, password;
   final _key = new GlobalKey<FormState>();
-check() {
+  check() {
     final form = _key.currentState;
     if (form!.validate()) {
       form.save();
@@ -103,8 +143,6 @@ check() {
 
     }
   }
-
-  
 
   login() async {
     print(Idcard);
@@ -149,214 +187,251 @@ check() {
         textColor: Colors.white);
   }
 
- 
   @override
-  Widget build(BuildContext context) =>
-    Scaffold(
-        body: Container(
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: <Widget>[
-                Positioned(
-                    top: -MediaQuery.of(context).size.width * .15,
-                    right: -MediaQuery.of(context).size.width * .4,
-                    child: BezierContainer()),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: MediaQuery.of(context).size.height * .3),
-                        RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-                text: 'Thi',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xffe46b10)
-                ),
-                children: [
-                  TextSpan(
-                    text: 'ruma',
-                    style: TextStyle(color: Colors.black, fontSize: 30),
-                  ),
-                  TextSpan(
-                    text: 'nam',
-                    style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
-                  ),
-                ]),
-          ),
-        SizedBox(height: 10,),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-                text: 'Register',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xffe46b10)
-                ),
-                children: [
-                  TextSpan(
-                    text: '  Form  ',
-                    style: TextStyle(color: Colors.black, fontSize: 30),
-                  ),
-                  TextSpan(
-                    text: 'Details',
-                    style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
-                  ),
-                ]),
-          ),
-                        
-                         
-                        
-                        
-                        
-                        // SizedBox(height: MediaQuery.of(context).size.height * .010),
-                        InkWell(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
-            },
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"),
+                    fit: BoxFit.cover)),
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 1),
-              // padding: EdgeInsets.all(15),
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  
-                  SizedBox(
-                    width: 10,
-                  ),
-                  
-                ],
-              ),
-            ),
-          ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(top: 40, left: 0, child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-                    child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
-                  ),
-                  Text('Back',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-                ],
-              ),
-            ),
-          )),
-              ],
-            ),
-            isCompleted
-              ? Container()
-              : Theme(
-                  data: Theme.of(context).copyWith(
-                      colorScheme: ColorScheme.light(primary: Color(0xFF0C8CE9)), 
-                      
-                      ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RotatedBox(
+                  quarterTurns: -2,
                   child: Container(
-                    child: Stepper(
-                        // controlsBuilder: (context, ControlsDetails details)
-                        type: StepperType.vertical,
-                        physics: ScrollPhysics(),
-                        
-                        steps: getStep(),
-                        currentStep: currentStep,
-                        onStepContinue: () {
-                          final isLastStep = currentStep == getStep().length - 1;
-                          final isFrstStep = currentStep == 0;
-                          final issecondStep = currentStep == 1;
-                          final isthirdStep = currentStep == 2;
-                          
-                          if (isLastStep) {
-                            setState(() => isCompleted = true);
-                            print('Completed');
-                          } else if (isFrstStep) {
-                            setState(() => check());
-                          
-                            print('barat');
-                          } else if (issecondStep) {
-                            setState(() => currentStep += 2);
-                            print("object");
-                          } else if (isthirdStep) {
-                            setState(() => currentStep += 3);
-                            print("object");
-                          } else {
-                            print(isFrstStep);
-                            // setState(() => currentStep += 1);
-                          }
-                        },
-                        onStepTapped: (step) => setState(() => currentStep = step),
-                        onStepCancel: currentStep == 0
-                            ? null
-                            : () => setState(() => currentStep -= 1),
-                          
-                        controlsBuilder:
-                            ((BuildContext context, ControlsDetails controls,
-                                {VoidCallback? onStepContinue,
-                                VoidCallback? onStepCancel}) {
-                          final isLastStep = currentStep == getStep().length - 1;
-                          return Container(
-                            margin: EdgeInsets.only(top: 50),
-                            child: Row(
-                              children: [
-                                if (currentStep != 0)
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))),
-                                    
-                                      onPressed: controls.onStepCancel,
-                                      child: Text("Back")),
-                                
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0))),
-                                    onPressed: controls.onStepContinue,
-                                    child: Text(isLastStep ? "Confirm" : "Next")),
-                              ],
-                            ),
-                          );
-                        }),
-                        //  controlsBuilder: (BuildContext context, ControlsDetails details)
+                      // padding: EdgeInsets.only(top: 100),
+                      child: Stack(
+                    children: <Widget>[
+                      // Image(image: NetworkImage("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"), width: 10,),
+                      Container(
+                        color: Colors.black,
+                        width: 10,
+                        height: 10,
                       ),
-                      
-                  ),
-                ),
-          ],
-        ),
-      ),
+                      RotatedBox(
+                        quarterTurns: 2,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 0, top: 10, bottom: 10),
+                                    child: Icon(Icons.arrow_circle_left_outlined,
+                                        color: Colors.black, size: 32,),
+                                  ),
+                                  
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
       
-    )
-    
+                      //stack overlaps widgets
+                      Opacity(
+                        //semi red clippath with more height and with 0.5 opacity
+                        opacity: 0.5,
+                        child: ClipPath(
+                          clipper: WaveClipper(), //set our custom wave clipper
+                          child: Container(
+                            color: Colors.white,
+                            height: 630,
+                          ),
+                        ),
+                      ),
+      
+                      ClipPath(
+                        //upper clippath with less height
+                        clipper: WaveClipper(), //set our custom wave clipper.
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 50),
+                          color: Colors.white,
+                          height: 610,
+                          alignment: Alignment.center,
+                          child: RotatedBox(
+                            quarterTurns: 2,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 250),
+                                    child: Container(
+                                      width: 100,
+                                      height: 50,
+                                      child: StepProgressIndicator(
+                                        totalSteps: 10,
+                                        currentStep: 6,
+                                        selectedColor: Colors.grey,
+                                        unselectedColor: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 5, right: 150, left: 30),
+                                          child: Text("Register",
+                                              style: GoogleFonts.nunito(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold))),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 5),
+                                          child: Text("Go to login",
+                                              style: GoogleFonts.nunito(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall,
+                                                  fontSize: 20,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold))),
+                                    ],
+                                  ),
+                                  isCompleted
+                                      ? next()
+                                      : Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: ColorScheme.light(
+                                                primary: Color(0xFF0C8CE9)),
+                                          ),
+                                          child: Container(
+                                            child: Stepper(
+                                              // controlsBuilder: (context, ControlsDetails details)
+                                              type: StepperType.vertical,
+                                              physics: ScrollPhysics(),
+      
+                                              steps: getStep(),
+                                              currentStep: currentStep,
+                                              onStepContinue: () {
+                                                final isLastStep = currentStep ==
+                                                    getStep().length - 1;
+                                                final isFrstStep =
+                                                    currentStep == 0;
+                                                final issecondStep =
+                                                    currentStep == 1;
+                                                final isthirdStep =
+                                                    currentStep == 2;
+      
+                                                if (isLastStep) {
+                                                  setState(
+                                                      () => isCompleted = true);
+                                                  print('Completed');
+                                                } else if (isFrstStep) {
+                                                  // EmailValidator.validate(Email.toString());
+                                                  // setState(() => check());
+                                                  // print("object");
+                                                  print('barat');
+                                                } else if (issecondStep) {
+                                                  setState(
+                                                      () => currentStep += 2);
+                                                  print("object");
+                                                } else if (isthirdStep) {
+                                                  setState(
+                                                      () => currentStep += 3);
+                                                  print("object");
+                                                } else {
+                                                  print(isFrstStep);
+                                                  // setState(() => currentStep += 1);
+                                                }
+                                              },
+                                              onStepTapped: (step) => setState(
+                                                  () => currentStep = step),
+                                              onStepCancel: currentStep == 0
+                                                  ? null
+                                                  : () => setState(
+                                                      () => currentStep -= 1),
+      
+                                              controlsBuilder: ((BuildContext
+                                                      context,
+                                                  ControlsDetails controls,
+                                                  {VoidCallback? onStepContinue,
+                                                  VoidCallback? onStepCancel}) {
+                                                final isLastStep = currentStep ==
+                                                    getStep().length - 1;
+                                                return Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 50),
+                                                  child: Row(
+                                                    children: [
+                                                      if (currentStep != 0)
+                                                        ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                25.0))),
+                                                            onPressed: controls
+                                                                .onStepCancel,
+                                                            child: Text("Back")),
+                                                      SizedBox(
+                                                        width: 12,
+                                                      ),
+                                                      ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              25.0))),
+                                                          onPressed: controls
+                                                              .onStepContinue,
+                                                          child: Text(isLastStep
+                                                              ? "Confirm"
+                                                              : "Next")),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                              //  controlsBuilder: (BuildContext context, ControlsDetails details)
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+                ),
+              ),
+            ),
+          ),
+        ),
+      
     );
+  }
 
-    List<Step> getStep() => [
-    
+  List<Step> getStep() => [
         Step(
             state: currentStep > 0 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 0,
-            title: Text("Basic Information", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-            
+            title: Text(
+              "Basic Information",
+              style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
             content: Form(
-              key: _key,
+              // key: _key,
               child: Column(
                 children: [
                   SizedBox(
@@ -365,13 +440,12 @@ check() {
                   DropdownButtonFormField(
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      
                       labelText: "Profile For",
                       labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
                       // hintText: "aa",
                       enabledBorder: OutlineInputBorder(
                         //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -381,34 +455,41 @@ check() {
                       ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.emoji_people , color: Colors.black),
+                        child: Icon(Icons.emoji_people, color: Colors.black),
                       ),
                       filled: true,
                       // fillColor: Colors.white,
                       fillColor: Colors.grey.shade100,
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                    icon: Icon(
+                      Icons.arrow_drop_down_circle,
+                      color: Colors.blue,
+                    ),
                     dropdownColor: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
-                    
                     value: dropdownValue,
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
                       });
                     },
-                    items: <String>['Myself', 'Friend', 'Brother', 'Sister', "Son", "Daughter"]
-                        .map<DropdownMenuItem<String>>((String value) {
-                          
-                          
+                    items: <String>[
+                      'Myself',
+                      'Friend',
+                      'Brother',
+                      'Sister',
+                      "Son",
+                      "Daughter"
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
-                        
                         value: value,
                         child: Text(
                           value,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontFamily: "nunto"),
                         ),
-                        
                       );
                     }).toList(),
                   ),
@@ -416,12 +497,20 @@ check() {
                     height: 30,
                   ),
                   TextFormField(
+                    //   inputFormatters: [
+                    //      FilteringTextInputFormatter.allow(
+                    //   RegExp(r"[a-zA-Z]+|\s"),
+                    // )
+                    //   ],
                     // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
+                    validator: (e) {
+                      if (e!.isEmpty) {}
+                    },
+                    onChanged: (val) {
+                      setState(() {
+                        isFNameCorrect = isAlpha(val);
+                      });
+                    },
                     // onSaved: (e) => Idcard = e!,
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
@@ -434,6 +523,15 @@ check() {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      suffixIcon: isFNameCorrect == false
+                          ? Icon(
+                              Icons.close_sharp,
+                              color: Colors.red,size:20
+                            )
+                          : Icon(
+                              Icons.done,
+                              color: Colors.green,
+                            ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
                         child: Icon(Icons.people, color: Colors.black),
@@ -445,12 +543,18 @@ check() {
                   ),
                   TextFormField(
                     controller: Lastname,
-                         validator: (e) {
-                      if (e!.isEmpty) {
-                        return "Please Insert passowrd";
-                      }
+                    // validator: (e) {
+                    //   if (e!.isEmpty) {
+                    //     return "Please Insert passowrd";
+                    //   }
+                    // },
+                    // onSaved: (e) => password = e!,
+                    onChanged: (val) {
+                      setState(() {
+                        isLNameCorrect = isAlpha(val);
+                      });
                     },
-                    onSaved: (e) => password = e!,
+
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,
@@ -460,6 +564,15 @@ check() {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      suffixIcon: isLNameCorrect == false
+                          ? Icon(
+                              Icons.close_sharp,
+                              color: Colors.red,
+                            )
+                          : Icon(
+                              Icons.done,
+                              color: Colors.green,
+                            ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
                         child: Icon(Icons.people, color: Colors.black),
@@ -472,7 +585,6 @@ check() {
                   DropdownButtonFormField(
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      
                       labelText: "Gender",
                       labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
                       // hintText: "aa",
@@ -488,16 +600,18 @@ check() {
                       ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.nature_people , color: Colors.black),
+                        child: Icon(Icons.nature_people, color: Colors.black),
                       ),
                       filled: true,
                       // fillColor: Colors.white,
                       fillColor: Colors.grey.shade100,
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                    icon: Icon(
+                      Icons.arrow_drop_down_circle,
+                      color: Colors.blue,
+                    ),
                     dropdownColor: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
-                    
                     value: dropdownValue1,
                     onChanged: (String? newValue1) {
                       setState(() {
@@ -506,16 +620,15 @@ check() {
                     },
                     items: <String>['FeMale', 'Male', 'other']
                         .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
                       return DropdownMenuItem<String>(
-                        
                         value: value1,
                         child: Text(
                           value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontFamily: "nunto"),
                         ),
-                        
                       );
                     }).toList(),
                   ),
@@ -533,10 +646,12 @@ check() {
                       ),
                       suffixIcon: Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 5.0, top: 8.0, bottom: 8.0),
+                          padding: const EdgeInsets.only(
+                              right: 5.0, top: 8.0, bottom: 8.0),
                           child: ElevatedButton(
-                            
-                            child: Text("OTP"), onPressed: (){},),
+                            child: Text("OTP"),
+                            onPressed: () {},
+                          ),
                         ),
                       ),
                       prefixIcon: Container(
@@ -582,18 +697,23 @@ check() {
                           ],
                         ),
                       ),
-                      
                     ),
-                    
                   ),
                   SizedBox(
                     height: 30,
                   ),
                   TextFormField(
                     controller: Email,
+                    onChanged: (val) {
+                      setState(() {
+                        isEmailCorrect = isEmail(val);
+                      });
+                    },
                     //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
+                    //   if(EmailValidator.validate(e!)){
+                    //     email(true);
+                    //   } else{
+                    //   email(false);
                     //   }
                     // },
                     // onSaved: (e) => Idcard = e!,
@@ -604,15 +724,28 @@ check() {
                       hintText: "Email",
                       labelText: "Email",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.black)),
+                      // focusedBorder: OutlineInputBorder(
+                      //   borderRadius: BorderRadius.circular(10),
+                      //   borderSide: BorderSide(color: email.value ?Colors.green:Colors.red )
+                      // ),
+                      // suffixIcon: Icon(Icons.done, color: email.value ?Colors.green:Colors.black ),
+                      suffixIcon: isEmailCorrect == false
+                          ? Icon(
+                              Icons.close_sharp,
+                              color: Colors.red,
+                            )
+                          : Icon(
+                              Icons.done,
+                              color: Colors.green,
+                            ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
                         child: Icon(Icons.email, color: Colors.black),
                       ),
                     ),
                   ),
-                  
                   SizedBox(
                     height: 30,
                   ),
@@ -625,7 +758,7 @@ check() {
                     // obscureText: _secureText,
                     // onSaved: (e) => password = e!,
                     style: TextStyle(),
-            
+
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,
                       filled: true,
@@ -646,7 +779,7 @@ check() {
                       ),
                     ),
                   ),
-                    SizedBox(
+                  SizedBox(
                     height: 30,
                   ),
                   TextFormField(
@@ -658,7 +791,7 @@ check() {
                     // obscureText: _secureText,
                     // onSaved: (e) => password = e!,
                     style: TextStyle(),
-            
+
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,
                       filled: true,
@@ -685,1010 +818,1059 @@ check() {
         Step(
             state: currentStep > 1 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 1,
-            title: Text("Basic Information", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            title: Text("Basic Information",
+                style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.displaySmall,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
             content: Column(
               children: [
                 SizedBox(
-                    height: 30,
-                  ),
+                  height: 30,
+                ),
                 DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Religion",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Religion",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue2,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue2 = newValue1!;
-                      });
-                    },
-                    items: <String>['Hindu', 'Christian', 'Muslim']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Community",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue3,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue3 = newValue1!;
-                      });
-                    },
-                    items: <String>['BC', 'MBC', 'SC']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Mother Tounge",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue4,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue4 = newValue1!;
-                      });
-                    },
-                    items: <String>['Tamil', 'Malayalam', 'Hindi']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  SizedBox(
-                    height: 30,
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
                   ),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Caste",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue2,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue2 = newValue1!;
+                    });
+                  },
+                  items: <String>['Hindu', 'Christian', 'Muslim']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Community",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue5,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue5 = newValue1!;
-                      });
-                    },
-                    items: <String>['Bramin', 'Nadar', 'vishwakarma']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Sub-Caste",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue6,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue6 = newValue1!;
-                      });
-                    },
-                    items: <String>['Karukkupattaiyathar', 'Mel-nattar', 'Kammalar']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue3,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue3 = newValue1!;
+                    });
+                  },
+                  items: <String>['BC', 'MBC', 'SC']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Mother Tounge",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue4,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue4 = newValue1!;
+                    });
+                  },
+                  items: <String>['Tamil', 'Malayalam', 'Hindi']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Caste",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue5,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue5 = newValue1!;
+                    });
+                  },
+                  items: <String>['Bramin', 'Nadar', 'vishwakarma']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Sub-Caste",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue6,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue6 = newValue1!;
+                    });
+                  },
+                  items: <String>[
+                    'Karukkupattaiyathar',
+                    'Mel-nattar',
+                    'Kammalar'
+                  ].map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ],
             )),
         Step(
             state: currentStep > 2 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 2,
-            title: Text("Address Details", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            title: Text(
+              "Address Details",
+              style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
             content: Column(
               children: [
                 SizedBox(
-                    height: 10,
-                  ),
+                  height: 10,
+                ),
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: RichText(text: TextSpan(text: "Communcation Address", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25)))),
+                    child: RichText(
+                        text: TextSpan(
+                            text: "Communcation Address",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)))),
                 SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Door no",
-                      labelText: "Door no",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Street",
-                      labelText: "Street",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Area",
-                      labelText: "Area",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "City",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue7,
-                    onChanged: (String? newValue1) {
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue7 = newValue1!;
+                        isDoorCorrect= isDoor(val);
                       });
                     },
-                    items: <String>['Chennai', 'Maduari', 'Theni']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
 
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "District",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Door no",
+                    labelText: "Door no",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue8,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isDoorCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                   onChanged: (val){
                       setState(() {
-                        dropdownValue8 = newValue1!;
+                        isStreetCorrect = isAlphanumeric(val);
                       });
                     },
-                    items: <String>['Chennai', 'Maduari', 'Theni']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "State",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Street",
+                    labelText: "Street",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue9,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isStreetCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue9 = newValue1!;
+                        isAreaCorrect= isAlpha(val);
                       });
                     },
-                    items: <String>['Tamilnadu', 'Kerala', 'Telangana']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
 
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Country",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Area",
+                    labelText: "Area",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue10,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue10 = newValue1!;
-                      });
-                    },
-                    items: <String>['India', 'US', 'UAE']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Nationality",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    suffixIcon: isAreaCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue11,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue11 = newValue1!;
-                      });
-                    },
-                    items: <String>['Indian', 'American', 'United Arab Emirates']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
                   ),
-                  SizedBox(
-                    height: 30,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "City",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  Align(
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue7,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue7 = newValue1!;
+                    });
+                  },
+                  items: <String>['Chennai', 'Maduari', 'Theni']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "District",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue8,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue8 = newValue1!;
+                    });
+                  },
+                  items: <String>['Chennai', 'Maduari', 'Theni']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "State",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue9,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue9 = newValue1!;
+                    });
+                  },
+                  items: <String>['Tamilnadu', 'Kerala', 'Telangana']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Country",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue10,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue10 = newValue1!;
+                    });
+                  },
+                  items: <String>['India', 'US', 'UAE']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Nationality",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue11,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue11 = newValue1!;
+                    });
+                  },
+                  items: <String>['Indian', 'American', 'United Arab Emirates']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Align(
                     alignment: Alignment.centerLeft,
-                    child: RichText(text: TextSpan(text: "Permanent Address", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25)))),
-                      SizedBox(
-                    height: 30,
-                  ),
-
-                    TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Door no",
-                      labelText: "Door no",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Street",
-                      labelText: "Street",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Area",
-                      labelText: "Area",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "City",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue12,
-                    onChanged: (String? newValue1) {
+                    child: RichText(
+                        text: TextSpan(
+                            text: "Permanent Address",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25)))),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue12 = newValue1!;
+                        isDoorCorrect = isDoor(val);
                       });
                     },
-                    items: <String>['Chennai', 'Maduari', 'Theni']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
 
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "District",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Door no",
+                    labelText: "Door no",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue13,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isDoorCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue13 = newValue1!;
+                        isStreetCorrect= isAlphanumeric(val);
                       });
                     },
-                    items: <String>['Chennai', 'Maduari', 'Theni']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "State",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Street",
+                    labelText: "Street",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue14,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isStreetCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue14 = newValue1!;
+                        isAreaCorrect = isAlpha(val);
                       });
                     },
-                    items: <String>['Tamilnadu', 'Kerala', 'Telangana']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Country",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Area",
+                    labelText: "Area",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue15,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue15 = newValue1!;
-                      });
-                    },
-                    items: <String>['India', 'US', 'UAE']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Nationality",
-                      labelStyle: TextStyle(color: Colors.blue),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    suffixIcon: isAreaCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue16,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue16 = newValue1!;
-                      });
-                    },
-                    items: <String>['Indian', 'American', 'United Arab Emirates']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
                   ),
-
-                ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "City",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue12,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue12 = newValue1!;
+                    });
+                  },
+                  items: <String>['Chennai', 'Maduari', 'Theni']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "District",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue13,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue13 = newValue1!;
+                    });
+                  },
+                  items: <String>['Chennai', 'Maduari', 'Theni']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "State",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue14,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue14 = newValue1!;
+                    });
+                  },
+                  items: <String>['Tamilnadu', 'Kerala', 'Telangana']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Country",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue15,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue15 = newValue1!;
+                    });
+                  },
+                  items: <String>['India', 'US', 'UAE']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Nationality",
+                    labelStyle: TextStyle(color: Colors.blue),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue16,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue16 = newValue1!;
+                    });
+                  },
+                  items: <String>['Indian', 'American', 'United Arab Emirates']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
             )),
 
         // ------------
@@ -1696,1404 +1878,1606 @@ check() {
         Step(
             state: currentStep > 3 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 3,
-            title: Text("Personal Details", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            title: Text("Personal Details",
+                style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.displaySmall,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
             content: Column(
               children: [
                 SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Height",
-                      labelText: "Height",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Weight",
-                      labelText: "Weight",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Hobbies",
-                      labelText: "Hobbies",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Skin Tone",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue17,
-                    onChanged: (String? newValue1) {
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue17 = newValue1!;
+                        isheightCorrect = isHeight(val);
                       });
                     },
-                    items: <String>['Fair', 'Medium', 'Light', 'Dark']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
 
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Diet",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Height",
+                    labelText: "Height",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue18,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isheightCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue18 = newValue1!;
+                        isweightCorrect= isHeight(val);
                       });
                     },
-                    items: <String>['Vegitarian', 'Non-Vegitarian']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Martial Details",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Weight",
+                    labelText: "Weight",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue19,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isweightCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue19 = newValue1!;
+                        ishobbiesCorrect= isAlpha(val);
                       });
                     },
-                    items: <String>['Single', 'Married', 'Divorce']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "No.of Children",
-                      labelText: "No.of Children",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Hobbies",
+                    labelText: "Hobbies",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: ishobbiesCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Skin Tone",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
                   ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue17,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue17 = newValue1!;
+                    });
+                  },
+                  items: <String>['Fair', 'Medium', 'Light', 'Dark']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Diet",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue18,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue18 = newValue1!;
+                    });
+                  },
+                  items: <String>['Vegitarian', 'Non-Vegitarian']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Martial Details",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue19,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue19 = newValue1!;
+                    });
+                  },
+                  items: <String>['Single', 'Married', 'Divorce']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
+                      setState(() {
+                        ischildCorrect = isNumeric(val);
+                      });
+                    },
 
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Children Status",
-                      labelText: "Children Status",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "No.of Children",
+                    labelText: "No.of Children",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: ischildCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
+                      setState(() {
+                        isStatusCorrect = isAlpha(val);
+                      });
+                    },
+
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Children Status",
+                    labelText: "Children Status",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: isStatusCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
               ],
             )),
 
         Step(
             state: currentStep > 4 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 4,
-            title: Text("Carrier & Working Details", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            title: Text("Carrier & Working Details",
+                style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.displaySmall,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
             content: Column(
-              
               children: [
                 SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Educational Qualification",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Educational Qualification",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue20,
-                    onChanged: (String? newValue1) {
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue20,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue20 = newValue1!;
+                    });
+                  },
+                  items: <String>['B.E', 'B.Com', 'B.Sc']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Working in",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue21,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue21 = newValue1!;
+                    });
+                  },
+                  items: <String>['Chennai', 'Maduari', 'Banglore']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue20 = newValue1!;
+                        isworkingCorrect =  isAlpha(val);
                       });
                     },
-                    items: <String>['B.E', 'B.Com', 'B.Sc']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Working in",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Working as",
+                    labelText: "Working as",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue21,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isworkingCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                   onChanged: (val){
                       setState(() {
-                        dropdownValue21 = newValue1!;
+                        iscompanyCorrect=  isAlpha(val);
                       });
                     },
-                    items: <String>['Chennai', 'Maduari', 'Banglore']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Working as",
-                      labelText: "Working as",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Company Details",
+                    labelText: "Company Details",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: iscompanyCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Company Details",
-                      labelText: "Company Details",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                   onChanged: (val){
+                      setState(() {
+                        isIncomeCorrect = isNumeric(val);
+                      });
+                    },
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Annual Income",
+                    labelText: "Annual Income",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: isIncomeCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Annual Income",
-                      labelText: "Annual Income",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
+                ),
               ],
             )),
 
         Step(
             state: currentStep > 5 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 5,
-            title: Text("Carrier & Working Details", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            title: Text("Carrier & Working Details",
+                style: GoogleFonts.nunito(
+                    textStyle: Theme.of(context).textTheme.displaySmall,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
             content: Column(
               children: [
-                
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Rasi",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Rasi",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue22,
-                    onChanged: (String? newValue1) {
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue22,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue22 = newValue1!;
+                    });
+                  },
+                  items: <String>[
+                    'Aries',
+                    'Taurus',
+                    'Gemini',
+                    'Cancer',
+                    'Leo',
+                    'Virgo',
+                    'Libra',
+                    'Scorpio',
+                    'Sagittarius',
+                    'Capricorn',
+                    'Aquarius',
+                    'Pisces'
+                  ].map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Natchathiram",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue23,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue23 = newValue1!;
+                    });
+                  },
+                  items: <String>[
+                    'Ashwini',
+                    'Bharani',
+                    'Krittika',
+                    'Rohini',
+                    'Mrighasira',
+                    'Ardra',
+                    'Punarvasu',
+                    'Pushya',
+                    'Ashlesha',
+                    'Magha',
+                    'Purva Phalguni',
+                    'Uttara Phalguni',
+                    'Hasta',
+                    'Chitra',
+                    'Swati',
+                    'Vishaka',
+                  ].map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Laknam",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue24,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue24 = newValue1!;
+                    });
+                  },
+                  items: <String>[
+                    'Ashwini',
+                    'Bharani',
+                    'Krittika',
+                    'Rohini',
+                    'Mrighasira',
+                    'Ardra',
+                    'Punarvasu',
+                    'Pushya',
+                    'Ashlesha',
+                    'Magha',
+                    'Purva Phalguni',
+                    'Uttara Phalguni',
+                    'Hasta',
+                    'Chitra',
+                    'Swati',
+                    'Vishaka',
+                  ].map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Gothram",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue25,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue25 = newValue1!;
+                    });
+                  },
+                  items: <String>['Yes', 'No']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Kuladeivam",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue26,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue26 = newValue1!;
+                    });
+                  },
+                  items: <String>['Yes', 'No']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Dosham",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue27,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue27 = newValue1!;
+                    });
+                  },
+                  items: <String>['Yes', 'No']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                   onChanged: (val){
                       setState(() {
-                        dropdownValue22 = newValue1!;
+                        isdoshamCorrect= isAlpha(val);
                       });
                     },
-                    items: <String>['Aries', 'Taurus', 'Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Natchathiram",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "If Yes Details",
+                    labelText: "If Yes Details",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue23,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue23 = newValue1!;
-                      });
-                    },
-                    items: <String>['Ashwini', 'Bharani', 'Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka',]
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Laknam",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue24,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue24 = newValue1!;
-                      });
-                    },
-                    items: <String>['Ashwini', 'Bharani', 'Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka',]
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Gothram",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue25,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue25 = newValue1!;
-                      });
-                    },
-                    items: <String>['Yes', 'No']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                                    DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Kuladeivam",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue26,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue26 = newValue1!;
-                      });
-                    },
-                    items: <String>['Yes', 'No']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  
-
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Dosham",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue27,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue27 = newValue1!;
-                      });
-                    },
-                    items: <String>['Yes', 'No']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "If Yes Details",
-                      labelText: "If Yes Details",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
+                    suffixIcon: isdoshamCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
                   ),
+                ),
               ],
             )),
 
         Step(
             isActive: currentStep >= 6,
-            
-            title: Text("Family Details", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "nunto"),),
+            title: Text(
+              "Family Details",
+              style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
             content: Column(
               children: [
-                SizedBox(height: 30,),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Father Name",
-                      labelText: "Father Name",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Father Occupation",
-                      labelText: "Father Occupation",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Mother Name",
-                      labelText: "Mother Name",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  TextFormField(
-                    // controller: Firstname,
-                    //      validator: (e) {
-                    //   if (e!.isEmpty) {
-                    //     return "Please Insert Idcard";
-                    //   }
-                    // },
-                    // onSaved: (e) => Idcard = e!,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade100,
-                      filled: true,
-                      hintText: "Mother Occupation",
-                      labelText: "Mother Occupation",
-                      hintStyle: TextStyle(fontFamily: "nunto"),
-                      labelStyle: TextStyle(fontFamily: "nunto"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "No of Brother",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
-                    ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue28,
-                    onChanged: (String? newValue1) {
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                   onChanged: (val){
                       setState(() {
-                        dropdownValue28 = newValue1!;
+                        isFathernameCorrect= isFather(val);
                       });
                     },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "No of Brother Married",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Father Name",
+                    labelText: "Father Name",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue29,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isFathernameCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue29 = newValue1!;
+                        isFatherOcuupationCorrect = isAlpha(val);
                       });
                     },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "No of Sister",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Father Occupation",
+                    labelText: "Father Occupation",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue30,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isFatherOcuupationCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue30 = newValue1!;
+                        isMname= isMother(val);
                       });
                     },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "No of Sister Married",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Mother Name",
+                    labelText: "Mother Name",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue31,
-                    onChanged: (String? newValue1) {
+                    suffixIcon: isMname == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: Firstname,
+                  //      validator: (e) {
+                  //   if (e!.isEmpty) {
+                  //     return "Please Insert Idcard";
+                  //   }
+                  // },
+                  // onSaved: (e) => Idcard = e!,
+                  onChanged: (val){
                       setState(() {
-                        dropdownValue31 = newValue1!;
+                        isMOcuupationCorrect = isAlpha(val);
                       });
                     },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Own Vehicle",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Mother Occupation",
+                    labelText: "Mother Occupation",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue32,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue32 = newValue1!;
-                      });
-                    },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Own House",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    suffixIcon: isMOcuupationCorrect == false ? Icon(Icons.close_sharp, color: Colors.red,): Icon(Icons.done, color: Colors.green,),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue33,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue33 = newValue1!;
-                      });
-                    },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
                   ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Own Lands",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "No of Brother",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue34,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue34 = newValue1!;
-                      });
-                    },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30,),
-                  DropdownButtonFormField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      
-                      labelText: "Own Flats",
-                      labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
-                      // hintText: "aa",
-                      enabledBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        //<-- SEE HERE
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.person, color: Colors.black),
-                      ),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      fillColor: Colors.grey.shade100,
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    icon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
-                    dropdownColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(20),
-                    
-                    value: dropdownValue35,
-                    onChanged: (String? newValue1) {
-                      setState(() {
-                        dropdownValue35 = newValue1!;
-                      });
-                    },
-                    items: <String>['0', '1']
-                        .map<DropdownMenuItem<String>>((String value1) {
-                          
-                          
-                      return DropdownMenuItem<String>(
-                        
-                        value: value1,
-                        child: Text(
-                          value1,
-                          style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: "nunto"),
-                        ),
-                        
-                      );
-                    }).toList(),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue28,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue28 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "No of Brother Married",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue29,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue29 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "No of Sister",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue30,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue30 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "No of Sister Married",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue31,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue31 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Own Vehicle",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue32,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue32 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Own House",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue33,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue33 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Own Lands",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue34,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue34 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                DropdownButtonFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Own Flats",
+                    labelStyle: TextStyle(color: Colors.blue, fontSize: 21),
+                    // hintText: "aa",
+                    enabledBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.person, color: Colors.black),
+                    ),
+                    filled: true,
+                    // fillColor: Colors.white,
+                    fillColor: Colors.grey.shade100,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.blue,
+                  ),
+                  dropdownColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                  value: dropdownValue35,
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      dropdownValue35 = newValue1!;
+                    });
+                  },
+                  items: <String>['0', '1']
+                      .map<DropdownMenuItem<String>>((String value1) {
+                    return DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(
+                        value1,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: "nunto"),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ],
             )),
       ];
+}
+
+//Costom CLipper class with Path
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = new Path();
+    path.lineTo(
+        0, size.height); //start path with this if you are making at bottom
+
+    var firstStart = Offset(size.width / 5, size.height);
+    //fist point of quadratic bezier curve
+    var firstEnd = Offset(size.width / 2.25, size.height - 50.0);
+    //second point of quadratic bezier curve
+    path.quadraticBezierTo(
+        firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
+
+    var secondStart =
+        Offset(size.width - (size.width / 3.24), size.height - 105);
+    //third point of quadratic bezier curve
+    var secondEnd = Offset(size.width, size.height - 10);
+    //fourth point of quadratic bezier curve
+    path.quadraticBezierTo(
+        secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
+
+    path.lineTo(
+        size.width, 0); //end with this path if you are making wave at bottom
+    path.close();
+    return path;
   }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false; //if new instance have different instance than old instance
+    //then you must return true;
+  }
+}
+
+class next extends StatefulWidget {
+  @override
+  _nextState createState() => _nextState();
+}
+
+class _nextState extends State<next> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Container(),
+    );
+  }
+}

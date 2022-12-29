@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:thirumanam/Auth/Login_Auth.dart';
 import 'package:thirumanam/Auth/Register_Auth.dart';
 
+
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key, this.title}) : super(key: key);
 
@@ -18,8 +19,8 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => LoginPage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginAuth()));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -47,7 +48,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => RegisterAuth()));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

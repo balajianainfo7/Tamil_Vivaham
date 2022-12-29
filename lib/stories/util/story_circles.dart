@@ -16,7 +16,8 @@ class StoryCircle extends StatelessWidget {
           width: 50,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.blue,
+            // image: Image(image: NetworkImage("")),
+            color: Colors.white,
           ),
         ),
       ),

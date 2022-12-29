@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:thirumanam/Navigation/BottomNav.dart';
+import 'package:thirumanam/chat/chat_login.dart';
 // import 'package:thirumanam/Auth/BottomNav.dart';
 
 
 class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
+    return Scaffold(
+      body: MaterialApp(
+        home: HomeScreen(),
+      ),
     );
   }
 }
@@ -66,7 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.search_circle_fill),  color: Color(0xFF134FAF), iconSize: 30,),
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.chat_bubble_2_fill), color: Color(0xFF134FAF), iconSize: 30)
+            IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(username: 'balaji',)));
+
+            }, icon: Icon(CupertinoIcons.chat_bubble_2_fill), color: Color(0xFF134FAF), iconSize: 30)
           ],
         ),
         body: BottomNav(),

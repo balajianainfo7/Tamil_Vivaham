@@ -1,20 +1,14 @@
 
 import 'package:flutter/material.dart';
-// import 'package:thirumanam/Auth/BottomNav.dart';
-import 'package:thirumanam/Auth/Home_list_page.dart';
-import 'package:thirumanam/Auth/Login_Auth.dart';
 import 'package:thirumanam/Auth/Register_Auth.dart';
 import 'package:thirumanam/Auth/Welcome_auth.dart';
-// import 'package:thirumanam/Auth/cursal.dart';
-// import 'package:thirumanam/Auth/drawer.dart';
-// import 'package:thirumanam/Auth/ss.dart';
-import 'package:thirumanam/views//Home/Home_page.dart';
-import 'package:thirumanam/stories/homepage.dart';
-import 'package:thirumanam/widget/quardentic_curve.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thirumanam/Navigation/drawer.dart';
 
-import 'Otp Auth/otp.dart';
-
-void main() {
+import 'Auth/Home_list_page.dart';
+void main() async{
+    SharedPreferences.setMockInitialValues({});
+   await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -38,7 +32,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: StepperRegister(),
+      home: HomePageView(),
     );
   }
 }
