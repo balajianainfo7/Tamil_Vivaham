@@ -6,6 +6,7 @@ import 'package:thirumanam/stories/homepage.dart';
 import 'package:thirumanam/stories/storypage.dart';
 import 'package:thirumanam/stories/util/story_circles.dart';
 import 'package:thirumanam/widget/consttants.dart';
+import 'package:thirumanam/widget/food_part.dart';
 // import 'package:thirumanam/Auth/ss.dart';
 
 class HomePageView extends StatefulWidget {
@@ -17,14 +18,14 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
 
-  void _openStory() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => StoryPage(),
-      ),
-    );
-  }
+  // void _openStory() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => StoryPage(),
+  //     ),
+  //   );
+  // }
   
   @override
   Widget build(BuildContext context) {
@@ -34,24 +35,66 @@ class _HomePageViewState extends State<HomePageView> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 25, top: 20, bottom: 20, right: 5
+              padding: EdgeInsets.only(top: 20, bottom: 20, right: 90
 
                   /// 10.0
                   ),
               child: Column(
         children: [
-          SizedBox(
-            height: 100,
-            child: ListView.builder(
-              itemCount: 6,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return StoryCircle(
-                  function: _openStory,
-                );
-              },
+          // SizedBox(
+          //   height: 100,
+          //   child: ListView.builder(
+          //     itemCount: 6,
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) {
+          //       return StoryCircle(
+          //         function: _openStory,
+          //       );
+          //     },
+          //   ),
+          // ),
+            Text("Find Your Life Patner", style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-          ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15), // <-- Radius
+    ),),
+                    onPressed: (){}, child: Row(
+                    children: [
+                      Text("Bride", style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),), Icon(Icons.female)
+                    ],
+                  )),
+                  SizedBox(width: 25,),
+                  ElevatedButton(
+                     style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15), // <-- Radius
+    ),),
+                    onPressed: (){}, child: Row(
+                    children: [
+                      Text("Groom", style: GoogleFonts.nunito(
+                  textStyle: Theme.of(context).textTheme.displaySmall,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),), Icon(Icons.female)
+                    ],
+                  ))
+                ],
+              ),
+            )
+
         ],
       ),
             ),
@@ -78,25 +121,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                             /// 10.0
                             ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Suggest for you",
-                              style: TextStyle(
-                                decoration: TextDecoration.overline,
-                                decorationStyle: TextDecorationStyle.dotted,
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-
-                            /// 20.0
-
-                            //  BoxView()
-                          ],
-                        ),
+                        child: FoodPart(partName: "Recommed"),
                       ),
                     ),
                     
