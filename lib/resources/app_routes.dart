@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:thirumanam/views/auth/Home_list_page.dart';
 import 'package:thirumanam/views/auth/login_page.dart';
+import 'package:thirumanam/views/auth/splash.dart';
 import 'package:thirumanam/views/auth/welcome_page.dart';
 import 'package:thirumanam/views/dashboard/dashboard_page.dart';
 
@@ -13,6 +14,7 @@ class Routes {
 
   /// routes list
   static List<GetPage<dynamic>> routes = [
+    GetPage(name: RouteNames.splash, page: () => Splash()),
     GetPage(name: RouteNames.welcome, page: () => WelcomePage()),
     GetPage(name: RouteNames.register, page: () => RegisterAuth()),
     GetPage(name: RouteNames.login, page: () => LoginAuth()),
@@ -23,7 +25,8 @@ class Routes {
 
 class RouteNames {
   /// Your password screen
-  static const welcome = '/';
+  static const splash = '/';
+  static const welcome = '/welcome_page';
   static const register = '/register_page';
   static const login = '/login_page';
   static const home = '/Home_list_page';

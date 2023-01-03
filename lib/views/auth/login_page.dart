@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:thirumanam/resources/app_colors.dart';
 import 'package:thirumanam/resources/app_routes.dart';
+import 'package:thirumanam/controller/register_controller.dart';
 import 'package:validators/validators.dart';
 
 class LoginAuth extends StatefulWidget {
@@ -16,70 +17,63 @@ class LoginAuth extends StatefulWidget {
 }
 
 class _LoginAuthState extends State<LoginAuth> {
-  late String emailphone, password;
+
+  final controller = Get.find<RegisterController>();
 
   final _key = new GlobalKey<FormState>();
   check() {
-    final form = _key.currentState;
-    if (form!.validate()) {
-      form.save();
 
-      login();
-
-      // loginwithphone();
-
-    }
   }
 
-  login() async {
-    final response = await http.post(
-      Uri.parse(
-          "http://ec2-18-212-165-158.compute-1.amazonaws.com:8000/auth/login"),
-      headers: <String, String>{
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        "emailphone": emailphone,
-        "password": password,
-      }),
-    );
-
-    print(response.body);
-    final data = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      print("object");
-      print(data);
-      setState(() {
-        Get.toNamed(RouteNames.home);
-      });
-      loginToast("Login Sucessfull");
-    } else if (response.statusCode == 400) {
-      loginToast("Email or password is not correct");
-    } else {
-      loginToast("Login Failed");
-    }
-  }
-
-  loginToast(String toast) {
-    return Fluttertoast.showToast(
-        msg: toast,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 3,
-        backgroundColor:
-            toast == "Login Sucessfull" ? Colors.green : Colors.red,
-        textColor: Colors.white);
-  }
-
-  bool isEmailCorrect = false;
-  bool _secureText = true;
-  bool? remember = false;
-  showHide() {
-    setState(() {
-      _secureText = !_secureText;
-    });
-  }
+  // login() async {
+  //   final response = await http.post(
+  //     Uri.parse(
+  //         "http://ec2-18-212-165-158.compute-1.amazonaws.com:8000/auth/login"),
+  //     headers: <String, String>{
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       "emailphone": emailphone,
+  //       "password": password,
+  //     }),
+  //   );
+  //
+  //   print(response.body);
+  //   final data = jsonDecode(response.body);
+  //
+  //   if (response.statusCode == 200) {
+  //     print("object");
+  //     print(data);
+  //     setState(() {
+  //       Get.toNamed(RouteNames.home);
+  //     });
+  //     loginToast("Login Sucessfull");
+  //   } else if (response.statusCode == 400) {
+  //     loginToast("Email or password is not correct");
+  //   } else {
+  //     loginToast("Login Failed");
+  //   }
+  // }
+  //
+  // loginToast(String toast) {
+  //   return Fluttertoast.showToast(
+  //       msg: toast,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.BOTTOM,
+  //       timeInSecForIosWeb: 3,
+  //       backgroundColor:
+  //           toast == "Login Sucessfull" ? Colors.green : Colors.red,
+  //       textColor: Colors.white);
+  // }
+  //
+  // bool isEmailCorrect = false;
+  // bool _secureText = true;
+  // bool? remember = false;
+  // showHide() {
+  //   setState(() {
+  //     _secureText = !_secureText;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,48 +184,33 @@ class _LoginAuthState extends State<LoginAuth> {
                                     key: _key,
                                     child: Column(
                                       children: [
-                                        TextFormField(
-                                          //   inputFormatters: [
-                                          //      FilteringTextInputFormatter.allow(
-                                          //   RegExp(r"[a-zA-Z]+|\s"),
-                                          // )
-                                          //   ],
-                                          // controller: Firstname,
-                                          validator: (e) {
-                                            if (e!.isEmpty) {
-                                              return "Please Insert Email/PhoneNumber";
-                                            }
-                                          },
-                                          onSaved: (e) => emailphone = e!,
-                                          onChanged: (val) {
-                                            setState(() {
-                                              isEmailCorrect = isEmail(val);
-                                            });
-                                          },
-                                          // onSaved: (e) => Idcard = e!,
+                                        TextField(
+                                         controller: controller.emailController,
                                           style: TextStyle(color: Colors.black),
                                           decoration: InputDecoration(
-                                            fillColor: Colors.grey.shade100,
-                                            filled: true,
-                                            hintText: "First Name",
-                                            labelText: "FirstName",
-                                            hintStyle:
-                                                TextStyle(fontFamily: "nunto"),
-                                            labelStyle:
-                                                TextStyle(fontFamily: "nunto"),
-                                            border: OutlineInputBorder(
+                                            hintText: "FirstName",
+                                            hintStyle: TextStyle(color: AppColors.hintTextColor),
+                                            enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
-                                            suffixIcon: isEmailCorrect == false
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                            ),
+                                            // contentPadding:
+                                            // const EdgeInsetsDirectional.only(
+                                            //     start: 20, end: 10),
+                                            suffixIcon: controller.isEmailCorrect == "false"
                                                 ? Icon(
                                                     Icons.close_sharp,
                                                     color: Colors.red,
                                                   )
-                                                : Icon(
+                                                :  controller.isEmailCorrect == "true"?
+                                                    Icon(
                                                     Icons.done,
                                                     color: Colors.green,
-                                                  ),
+                                                  ) : Container(width: 0,),
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
@@ -243,22 +222,18 @@ class _LoginAuthState extends State<LoginAuth> {
                                         SizedBox(
                                           height: 30,
                                         ),
-                                        TextFormField(
-                                          validator: (e) {
-                                            if (e!.isEmpty) {
-                                              return "Please Insert Passowrd";
-                                            }
-                                          },
-                                          onSaved: (e) => password = e!,
-                                          style: TextStyle(),
+                                        TextField(
+                                          controller: controller.passwordController,
                                           decoration: InputDecoration(
-                                            fillColor: Colors.grey.shade100,
-                                            filled: true,
                                             hintText: "Password",
-                                            labelText: "Password",
-                                            border: OutlineInputBorder(
+                                            hintStyle: TextStyle(color: AppColors.hintTextColor),
+                                            enabledBorder: OutlineInputBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
                                             ),
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
@@ -267,8 +242,10 @@ class _LoginAuthState extends State<LoginAuth> {
                                                   color: Colors.black),
                                             ),
                                             suffixIcon: IconButton(
-                                              onPressed: showHide,
-                                              icon: Icon(_secureText
+                                              onPressed: (){
+                                                controller.secureText.value = !controller.secureText.value;
+                                              },
+                                              icon: Icon(controller.secureText.value
                                                   ? Icons.visibility_off
                                                   : Icons.visibility),
                                             ),
@@ -277,7 +254,7 @@ class _LoginAuthState extends State<LoginAuth> {
                                         SizedBox(height: 20),
                                         InkWell(
                                           onTap: () {
-                                            check();
+                                            controller.checkInput(context);
                                           },
                                           child: Container(
                                             width: MediaQuery.of(context)

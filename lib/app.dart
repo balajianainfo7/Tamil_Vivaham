@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thirumanam/resources/app_routes.dart';
 import 'package:thirumanam/resources/app_style.dart';
+import 'package:thirumanam/views/auth/splash.dart';
 import 'package:thirumanam/views/auth/welcome_page.dart';
 
 import 'binding/main_binding.dart';
@@ -30,9 +31,8 @@ class App extends StatelessWidget {
       // routes: Routes.routes, TODO : fix
 
       theme: AppStyles.lightTheme(),
-      home: WelcomePage(),
       getPages: Routes.routes,
-      initialRoute: RouteNames.dashboard,
+      initialRoute: RouteNames.splash,
       // getPages: [
       //   GetPage(name: '/recordDetails', page: () => RecordDetailsView())
       // ]
