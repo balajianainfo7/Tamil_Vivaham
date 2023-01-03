@@ -12,6 +12,8 @@ import 'package:validators/validators.dart';
 import '../Auth/Home_list_page.dart';
 
 class RegisterAuth extends StatefulWidget {
+  
+
   @override
   _RegisterAuthState createState() => _RegisterAuthState();
 }
@@ -308,7 +310,7 @@ RegExp _float4 =
                                                 primary: Color(0xFF0C8CE9)),
                                           ),
                                           child: Container(
-                                            child: Stepper(
+                                            child: Obx(()=> Stepper(
                                               // controlsBuilder: (context, ControlsDetails details)
                                               type: StepperType.vertical,
                                               physics: ScrollPhysics(),
@@ -397,6 +399,7 @@ RegExp _float4 =
                                                 );
                                               }),
                                               //  controlsBuilder: (BuildContext context, ControlsDetails details)
+                                            ),
                                             ),
                                           ),
                                         ),
