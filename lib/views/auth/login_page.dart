@@ -7,6 +7,8 @@ import 'package:thirumanam/resources/app_colors.dart';
 import 'package:thirumanam/resources/app_routes.dart';
 import 'package:validators/validators.dart';
 
+import '../../resources/app_font.dart';
+
 class LoginAuth extends StatefulWidget {
   @override
   _LoginAuthState createState() => _LoginAuthState();
@@ -207,7 +209,9 @@ final _key = new GlobalKey<FormState>();
 
 
                               SizedBox(height: 20),
-                  Container(
+                  InkWell(
+                    onTap: () => Get.toNamed(RouteNames.dashboard),
+                    child: Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
@@ -226,9 +230,11 @@ final _key = new GlobalKey<FormState>();
               colors: AppColors.buttonColor)),
       child: Text(
         'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: TextStyle(fontSize: 20, color: Colors.white,
+        ),
       ),
     ),
+                  ),
     Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,

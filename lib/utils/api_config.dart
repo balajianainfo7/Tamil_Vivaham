@@ -17,6 +17,7 @@ class RestApiClient {
         }));
   }
 
+
   Dio dio = Dio(BaseOptions(
       connectTimeout: 5000,
       receiveTimeout: 3000,

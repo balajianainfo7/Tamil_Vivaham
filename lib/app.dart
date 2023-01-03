@@ -32,7 +32,7 @@ class App extends StatelessWidget {
       theme: AppStyles.lightTheme(),
       home: WelcomePage(),
       getPages: Routes.routes,
-      initialRoute: RouteNames.welcome,
+      initialRoute: RouteNames.dashboard,
       // getPages: [
       //   GetPage(name: '/recordDetails', page: () => RecordDetailsView())
       // ]

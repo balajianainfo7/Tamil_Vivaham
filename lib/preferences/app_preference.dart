@@ -28,4 +28,6 @@ class AppPreference extends PreferenceHelper {
   set accessToken(String? accessToken) {
     pref.write("accessToken", accessToken);
   }
+
+
 }
