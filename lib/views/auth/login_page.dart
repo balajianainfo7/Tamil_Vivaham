@@ -230,6 +230,7 @@ class _LoginAuthState extends State<LoginAuth> {
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                               BorderRadius.circular(10),
+
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius:

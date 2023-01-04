@@ -3,6 +3,7 @@ import 'package:thirumanam/controller/base_controller.dart';
 import 'package:thirumanam/resources/app_routes.dart';
 
 class SplashController extends BaseController{
+
   @override
   void onInit() {
     checkLogin();
