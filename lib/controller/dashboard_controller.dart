@@ -16,6 +16,10 @@ class DashboardController extends BaseController{
     setDummyHomeData();
   }
 
+  getAllUsersAPI(){
+
+  }
+
   setDummyHomeData(){
     HomeProfileModel model = HomeProfileModel(
       id: 1,

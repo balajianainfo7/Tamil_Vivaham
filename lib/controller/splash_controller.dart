@@ -15,6 +15,7 @@ class SplashController extends BaseController{
       if(appPreference.accessToken != null && appPreference.accessToken!.isEmpty){
         Get.toNamed(RouteNames.welcome);
       }else{
+        print("Token: ${appPreference.accessToken}");
         Get.toNamed(RouteNames.dashboard);
       }
     });

@@ -42,6 +42,7 @@ loginAPI(context) async {
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
           appPreference.accessToken = res["data"];
+          print("Token: ${res["data"]}");
           Get.toNamed(RouteNames.dashboard);
       }else{
         showSnackBar(res["message"], context);
