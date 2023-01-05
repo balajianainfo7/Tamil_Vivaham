@@ -5,6 +5,7 @@ import 'package:thirumanam/views/auth/login_page.dart';
 import 'package:thirumanam/views/auth/splash.dart';
 import 'package:thirumanam/views/auth/welcome_page.dart';
 import 'package:thirumanam/views/dashboard/dashboard_page.dart';
+import 'package:thirumanam/views/search_page.dart';
 
 import '../views/auth/register_page.dart';
 
@@ -20,6 +21,7 @@ class Routes {
     GetPage(name: RouteNames.login, page: () => LoginAuth()),
     GetPage(name: RouteNames.home, page: () => HomePageView()),
     GetPage(name: RouteNames.dashboard, page: () => DashboradPage()),
+    GetPage(name: RouteNames.search, page: () => SearchPage()),
   ];
 }
 
@@ -31,4 +33,5 @@ class RouteNames {
   static const login = '/login_page';
   static const home = '/Home_list_page';
   static const dashboard = '/dashboard_page';
+  static const search= '/search_page';
 }

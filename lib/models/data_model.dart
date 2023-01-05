@@ -10,7 +10,12 @@ class HomeProfileModel {
   String? name;
   String? image;
   String? designation;
+  String? location;
+  String? cusId;
+  String? heightInch;
+
   int? age;
   bool? isLiked;
-  HomeProfileModel({this.id, this.name, this.image = "", this.designation = "", this.age, this.isLiked = false});
+  HomeProfileModel({this.id, this.name, this.image = "", this.designation = "", this.age, this.isLiked = false,
+  this.location, this.cusId, this.heightInch});
 }

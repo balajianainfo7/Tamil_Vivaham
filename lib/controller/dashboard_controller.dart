@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thirumanam/controller/base_controller.dart';
 import 'package:thirumanam/models/data_model.dart';
@@ -5,6 +6,8 @@ import 'package:thirumanam/models/data_model.dart';
 class DashboardController extends BaseController{
   var homePageData = <HomeProfileModel> [].obs;
   var itemList = <HomePageDataModel>[].obs;
+
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void onInit() {
@@ -19,6 +22,9 @@ class DashboardController extends BaseController{
       name: "Sita",
       image: "https://w0.peakpx.com/wallpaper/332/718/HD-wallpaper-amrita-iyer-tamil-actress-model.jpg",
       designation: "Doctor",
+      location: "Madurai, Tamil Nadu",
+      cusId: "TIRU001",
+      heightInch: "5\".6",
       age: 24,
       isLiked: false
     );
@@ -27,6 +33,9 @@ class DashboardController extends BaseController{
         name: "Ram",
         image: "https://www.dazzlerr.com/API/assets/images/20029/profile/F038F442-86C1-8980-64E8-F1A20FA04371.jpg",
         designation: "Engineer",
+        location: "Chennai, Tamil Nadu",
+        cusId: "TIRU002",
+        heightInch: "5\".3",
         age: 28,
         isLiked: true
     );
@@ -35,6 +44,9 @@ class DashboardController extends BaseController{
         name: "Balaji",
         image: "https://modelsonly.in/wp-content/uploads/2018/12/1-3-480x580_t.jpeg",
         designation: "Doctor",
+        location: "Madurai, Tamil Nadu",
+        cusId: "TIRU003",
+        heightInch: "5\".1",
         age: 27,
         isLiked: false
     );
@@ -43,6 +55,9 @@ class DashboardController extends BaseController{
         name: "Priya",
         image: "https://i.pinimg.com/originals/da/3d/ea/da3dea35da177b381059555bff6a7ad8.jpg",
         designation: "Software Engineer",
+        location: "Madurai, Tamil Nadu",
+        cusId: "TIRU004",
+        heightInch: "5\".6",
         age: 24,
         isLiked: true
     );
@@ -51,6 +66,9 @@ class DashboardController extends BaseController{
         name: "Siddharth",
         image: "https://modelsonly.in/wp-content/uploads/2018/02/3-480x580_t.jpg",
         designation: "Architect",
+        location: "Chennai, Tamil Nadu",
+        cusId: "TIRU005",
+        heightInch: "5\".5",
         age: 26,
         isLiked: false
     );

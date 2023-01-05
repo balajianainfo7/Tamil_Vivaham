@@ -5,6 +5,7 @@ import 'package:thirumanam/controller/dashboard_controller.dart';
 import 'package:thirumanam/resources/app_colors.dart';
 import 'package:thirumanam/resources/app_dimen.dart';
 import 'package:thirumanam/resources/app_font.dart';
+import 'package:thirumanam/resources/app_routes.dart';
 import 'package:thirumanam/widget/home_profile_cards.dart';
 
 class DashboradPage extends StatelessWidget {
@@ -56,30 +57,33 @@ class DashboradPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        // padding: const EdgeInsets.only(right: 8, left: 8),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffdcdcdc)),
-                            color: const Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10)),
-                      child: TextField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top:14),
-                          hintText: "Search for Partner",
-                          hintStyle: TextStyle(color: Colors.grey),
-                          disabledBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(
-                                left: 0, right: 0, top: 3),
-                            child: Icon(Icons.search,
-                                color: Colors.grey),
+                    InkWell(
+                      onTap: () => Get.toNamed(RouteNames.search),
+                      child: Container(
+                          // padding: const EdgeInsets.only(right: 8, left: 8),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xffdcdcdc)),
+                              color: const Color(0xffF5F5F5),
+                              borderRadius: BorderRadius.circular(10)),
+                        child: TextField(
+                          enabled: false,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top:14),
+                            hintText: "Search for Partner",
+                            hintStyle: TextStyle(color: Colors.grey),
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 0, right: 0, top: 3),
+                              child: Icon(Icons.search,
+                                  color: Colors.grey),
+                            ),
                           ),
-                        ),
-                      )
+                        )
+                      ),
                     ),
                     SizedBox(height: 16,),
                     Text("Quick search",
