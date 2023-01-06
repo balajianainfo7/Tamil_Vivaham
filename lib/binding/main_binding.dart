@@ -1,8 +1,17 @@
 import 'package:get/get.dart';
+import 'package:thirumanam/controller/address_register_controller.dart';
+import 'package:thirumanam/controller/carrier_deatils_controller.dart';
+import 'package:thirumanam/controller/communication_register.dart';
 import 'package:thirumanam/controller/dashboard_controller.dart';
+import 'package:thirumanam/controller/forgot_otp_controller.dart';
+import 'package:thirumanam/controller/jathagam_details_controller.dart';
+import 'package:thirumanam/controller/personal_details_controller.dart';
 import 'package:thirumanam/controller/register_controller.dart';
 import 'package:thirumanam/controller/splash_controller.dart';
+import 'package:thirumanam/controller/stepper_register_controller.dart';
+import 'package:thirumanam/controller/verify_otp_controller.dart';
 
+import '../controller/family_details_controller.dart';
 import '../preferences/app_preference.dart';
 
 class MainBinding extends Bindings {
@@ -13,5 +22,14 @@ class MainBinding extends Bindings {
     Get.lazyPut<SplashController>(()=> SplashController(), fenix: true);
     Get.lazyPut<RegisterController>(()=> RegisterController(), fenix: true);
     Get.lazyPut<DashboardController>(()=> DashboardController(), fenix: true);
+    Get.lazyPut<ForgotOtpController>(()=> ForgotOtpController(), fenix: true);
+    Get.lazyPut<verifyOtpController>(()=> verifyOtpController(), fenix: true);
+    Get.lazyPut<StepperRegisterController>(()=> StepperRegisterController(), fenix: true);
+    Get.lazyPut<AdresssRegisterController>(()=> AdresssRegisterController(), fenix: true);
+    Get.lazyPut<CommunicationRegisterController>(()=> CommunicationRegisterController(), fenix: true);
+    Get.lazyPut<PersonalRegisterController>(()=> PersonalRegisterController(), fenix: true);
+    Get.lazyPut<CarrierRegisterController>(()=> CarrierRegisterController(), fenix: true);
+    Get.lazyPut<JathgamRegisterController>(()=> JathgamRegisterController(), fenix: true);
+    Get.lazyPut<FamilyRegisterController>(()=> FamilyRegisterController(), fenix: true);
   }
 }

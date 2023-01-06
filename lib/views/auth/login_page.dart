@@ -11,6 +11,8 @@ import 'package:thirumanam/resources/app_routes.dart';
 import 'package:thirumanam/controller/register_controller.dart';
 import 'package:validators/validators.dart';
 
+import '../../widget/quardentic_curve.dart';
+
 class LoginAuth extends StatefulWidget {
   @override
   _LoginAuthState createState() => _LoginAuthState();
@@ -133,7 +135,7 @@ class _LoginAuthState extends State<LoginAuth> {
                       //semi red clippath with more height and with 0.5 opacity
                       opacity: 0.5,
                       child: ClipPath(
-                        // clipper: WaveClipper(), //set our custom wave clipper
+                        clipper: WaveClipper(), //set our custom wave clipper
                         child: Container(
                           color: Colors.white,
                           height: 630,
@@ -143,7 +145,7 @@ class _LoginAuthState extends State<LoginAuth> {
 
                     ClipPath(
                       //upper clippath with less height
-                      // clipper: WaveClipper(), //set our custom wave clipper.
+                      clipper: WaveClipper(), //set our custom wave clipper.
                       child: Container(
                         padding: EdgeInsets.only(bottom: 50),
                         color: Colors.white,
@@ -230,7 +232,6 @@ class _LoginAuthState extends State<LoginAuth> {
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                               BorderRadius.circular(10),
-
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius:
@@ -288,14 +289,19 @@ class _LoginAuthState extends State<LoginAuth> {
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10),
-                                          alignment: Alignment.centerRight,
-                                          child: Text('Forgot Password ?',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500)),
+                                        InkWell(
+                                          onTap: (){
+                                             Get.toNamed(RouteNames.forgotPassword);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            alignment: Alignment.centerRight,
+                                            child: Text('Forgot Password ?',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500)),
+                                          ),
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
