@@ -6,8 +6,10 @@ class HomePageDataModel{
 }
 
 class HomeProfileModel {
-  int? id;
+  String? id;
+  String? userId;
   String? name;
+  String? gender;
   String? image;
   String? designation;
   String? location;
@@ -16,6 +18,6 @@ class HomeProfileModel {
 
   int? age;
   bool? isLiked;
-  HomeProfileModel({this.id, this.name, this.image = "", this.designation = "", this.age, this.isLiked = false,
+  HomeProfileModel({this.id, this.userId,this.gender, this.name, this.image = "", this.designation = "", this.age, this.isLiked = false,
   this.location, this.cusId, this.heightInch});
 }

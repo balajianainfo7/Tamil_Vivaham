@@ -9,14 +9,14 @@ class AllUsersModel {
       {this.success, this.message, this.status, this.totalCount, this.data});
 
   AllUsersModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    message = json['message'];
-    status = json['status'];
-    totalCount = json['totalCount'];
+    success = json['success'] != null ? json['success'] : "";
+    message = json['message'] != null ? json['message'] : "";
+    status = json['status'] != null ? json['status'] : 0;
+    totalCount = json['totalCount'] != null ? json['totalCount'] : 0;
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -66,32 +66,32 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     religionCommunity = json['religion_community'] != null
-        ? new ReligionCommunity.fromJson(json['religion_community'])
+        ? new ReligionCommunity.fromJson(json['religion_community'] as Map<String, dynamic>)
         : null;
     communicationDetials = json['communication_detials'] != null
-        ? new CommunicationDetials.fromJson(json['communication_detials'])
+        ? new CommunicationDetials.fromJson(json['communication_detials'] as Map<String, dynamic>)
         : null;
-    sId = json['_id'];
-    userObjId = json['user_obj_id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
-    stepperFormStage = json['stepper_form_stage'];
+    sId = json['_id'] != null ? json['_id'] : "";
+    userObjId = json['user_obj_id'] != null ? json['user_obj_id'] : "";
+    createdAt = json['createdAt'] != null ? json['createdAt'] : "";
+    updatedAt = json['updatedAt'] != null ? json['updatedAt'] : "";
+    // iV = json['__v'];
+    stepperFormStage = json['stepper_form_stage'] != null ? json['stepper_form_stage'] : 0;
     permanentAddress = json['permanent_address'] != null
-        ? new PermanentAddress.fromJson(json['permanent_address'])
+        ? new PermanentAddress.fromJson(json['permanent_address'] as Map<String, dynamic>)
         : null;
     personalDetails = json['personal_details'] != null
-        ? new PersonalDetails.fromJson(json['personal_details'])
+        ? new PersonalDetails.fromJson(json['personal_details'] as Map<String, dynamic>)
         : null;
     carrierAndWorkingDetails = json['carrier_and_working_details'] != null
         ? new CarrierAndWorkingDetails.fromJson(
-        json['carrier_and_working_details'])
+        json['carrier_and_working_details'] as Map<String, dynamic>)
         : null;
     jathagamDetails = json['jathagam_details'] != null
-        ? new JathagamDetails.fromJson(json['jathagam_details'])
+        ? new JathagamDetails.fromJson(json['jathagam_details'] as Map<String, dynamic>)
         : null;
     familyDetails = json['family_details'] != null
-        ? new FamilyDetails.fromJson(json['family_details'])
+        ? new FamilyDetails.fromJson(json['family_details'] as Map<String, dynamic>)
         : null;
   }
 
@@ -107,7 +107,7 @@ class Data {
     data['user_obj_id'] = this.userObjId;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    // data['__v'] = this.iV;
     data['stepper_form_stage'] = this.stepperFormStage;
     if (this.permanentAddress != null) {
       data['permanent_address'] = this.permanentAddress!.toJson();
@@ -144,11 +144,11 @@ class ReligionCommunity {
         this.subCaste});
 
   ReligionCommunity.fromJson(Map<String, dynamic> json) {
-    caste = json['caste'];
-    community = json['community'];
-    motherTounge = json['mother_tounge'];
-    religion = json['religion'];
-    subCaste = json['sub_caste'];
+    caste = json['caste'] != null ? json['caste'] : "";
+    community = json['community'] != null ? json['community'] : "";
+    motherTounge = json['mother_tounge'] != null ? json['mother_tounge'] : "";
+    religion = json['religion'] != null ? json['religion'] : "";
+    subCaste = json['sub_caste'] != null ? json['sub_caste'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -171,7 +171,7 @@ class CommunicationDetials {
   String? nationality;
   String? state;
   String? street;
-  Null? currentNationality;
+  String? currentNationality;
 
   CommunicationDetials(
       {this.area,
@@ -185,15 +185,15 @@ class CommunicationDetials {
         this.currentNationality});
 
   CommunicationDetials.fromJson(Map<String, dynamic> json) {
-    area = json['area'];
-    city = json['city'];
-    country = json['country'];
-    district = json['district'];
-    doorNo = json['door_no'];
-    nationality = json['nationality'];
-    state = json['state'];
-    street = json['street'];
-    currentNationality = json['current_nationality'];
+    area = json['area'] != null ? json['area'] : "";
+    city = json['city'] != null ? json['city'] : "";
+    country = json['country'] != null ? json['country'] : "";
+    district = json['district'] != null ? json['district'] : "";
+    doorNo = json['door_no'] != null ? json['door_no'] : "";
+    nationality = json['nationality'] != null ? json['nationality'] : "";
+    state = json['state'] != null ? json['state'] : "";
+    street = json['street'] != null ? json['street'] : "";
+    currentNationality = json['current_nationality'] != null ? json['current_nationality'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -230,13 +230,13 @@ class PermanentAddress {
         this.street});
 
   PermanentAddress.fromJson(Map<String, dynamic> json) {
-    area = json['area'];
-    city = json['city'];
-    country = json['country'];
-    district = json['district'];
-    doorNo = json['door_no'];
-    state = json['state'];
-    street = json['street'];
+    area = json['area'] != null ? json['area'] : "";
+    city = json['city'] != null ? json['city'] : "";
+    country = json['country'] != null ? json['country'] : "";
+    district = json['district'] != null ? json['district'] : "";
+    doorNo = json['door_no'] != null ? json['door_no'] : "";
+    state = json['state'] != null ? json['state'] : "";
+    street = json['street'] != null ? json['street'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -285,20 +285,20 @@ class PersonalDetails {
         this.nickName});
 
   PersonalDetails.fromJson(Map<String, dynamic> json) {
-    hobbies = json['hobbies'];
-    diet = json['diet'];
-    height = json['height'];
-    weight = json['weight'];
-    maritalDetails = json['marital_details'];
-    noOfChildren = json['no_of_children'];
-    skinTone = json['skin_tone'];
-    childrenStatus = json['children_status'];
-    dOB = json['DOB'];
-    age = json['age'];
-    firstName = json['first_name'];
-    gender = json['gender'];
-    lastName = json['last_name'];
-    nickName = json['nick_name'];
+    hobbies = json['hobbies'] != null  ? json['hobbies'] : "";
+    diet = json['diet'] != null  ? json['diet'] : "";
+    height = json['height'] != null  ? json['height'] : "";
+    weight = json['weight'] != null  ? json['weight'] : "";
+    maritalDetails = json['marital_details'] != null  ? json['marital_details'] : "";
+    noOfChildren = json['no_of_children'] != null  ? json['no_of_children'] : "";
+    skinTone = json['skin_tone'] != null  ? json['skin_tone'] : "";
+    childrenStatus = json['children_status'] != null  ? json['children_status'] : "";
+    dOB = json['DOB'] != null  ? json['DOB'] : "";
+    age = json['age'] != null  ? json['age'] : 0;
+    firstName = json['first_name'] != null  ? json['first_name'] : "";
+    gender = json['gender'] != null  ? json['gender'] : "";
+    lastName = json['last_name'] != null  ? json['last_name'] : "";
+    nickName = json['nick_name'] != null  ? json['nick_name'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -336,11 +336,11 @@ class CarrierAndWorkingDetails {
         this.annualIncome});
 
   CarrierAndWorkingDetails.fromJson(Map<String, dynamic> json) {
-    educationalQualification = json['educational_qualification'];
-    workingIn = json['working_in'];
-    workingAs = json['working_as'];
-    companyDetails = json['company_details'];
-    annualIncome = json['annual_income'];
+    educationalQualification = json['educational_qualification'] != null ? json['educational_qualification'] : "";
+    workingIn = json['working_in'] != null ? json['working_in'] : "";
+    workingAs = json['working_as'] != null ? json['working_as'] : "";
+    companyDetails = json['company_details'] != null ? json['company_details'] : "";
+    annualIncome = json['annual_income'] != null ? json['annual_income'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -371,12 +371,12 @@ class JathagamDetails {
         this.doshamDetails});
 
   JathagamDetails.fromJson(Map<String, dynamic> json) {
-    gothram = json['gothram'];
-    rasi = json['rasi'];
-    natchathiram = json['natchathiram'];
-    laknam = json['laknam'];
-    kuladeivam = json['kuladeivam'];
-    doshamDetails = json['dosham_details'];
+    gothram = json['gothram'] != null ? json['gothram'] : "";
+    rasi = json['rasi'] != null ? json['rasi'] : "";
+    natchathiram = json['natchathiram'] != null ? json['natchathiram'] : "";
+    laknam = json['laknam'] != null ? json['laknam'] : "";
+    kuladeivam = json['kuladeivam'] != null ? json['kuladeivam'] : "";
+    doshamDetails = json['dosham_details'] != null ? json['dosham_details'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -422,19 +422,19 @@ class FamilyDetails {
         this.ownLands});
 
   FamilyDetails.fromJson(Map<String, dynamic> json) {
-    fatherName = json['father_name'];
-    motherName = json['mother_name'];
-    motherOccupation = json['mother_occupation'];
-    noOfBro = json['no_of_bro'];
-    noOfBroMarried = json['no_of_bro_married'];
-    noOfSis = json['no_of_sis'];
-    noOfSisMarried = json['no_of_sis_married'];
-    ownVehicle = json['own_vehicle'];
-    ownHouse = json['own_house'];
-    fatherOcuupation = json['father_ocuupation'];
-    expectation = json['expectation'];
-    ownFlats = json['own_flats'];
-    ownLands = json['own_lands'];
+    fatherName = json['father_name'] != null ? json['father_name'] : "";
+    motherName = json['mother_name'] != null ? json['mother_name'] : "";
+    motherOccupation = json['mother_occupation'] != null ? json['mother_occupation'] : "";
+    noOfBro = json['no_of_bro'] != null ? json['no_of_bro'] : "";
+    noOfBroMarried = json['no_of_bro_married'] != null ? json['no_of_bro_married'] : "";
+    noOfSis = json['no_of_sis'] != null ? json['no_of_sis'] : "";
+    noOfSisMarried = json['no_of_sis_married'] != null ? json['no_of_sis_married'] : "";
+    ownVehicle = json['own_vehicle'] != null ? json['own_vehicle'] : "";
+    ownHouse = json['own_house'] != null ? json['own_house'] : "";
+    fatherOcuupation = json['father_ocuupation'] != null ? json['father_ocuupation'] : "";
+    expectation = json['expectation'] != null ? json['expectation'] : "";
+    ownFlats = json['own_flats'] != null ? json['own_flats'] : "";
+    ownLands = json['own_lands'] != null ? json['own_lands'] : "";
   }
 
   Map<String, dynamic> toJson() {
