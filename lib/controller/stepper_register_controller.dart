@@ -161,7 +161,7 @@ forgotEmailInput(context){
 }
 
 forgotEmailAPI(context) async {
-  final params = {"emailphone": emailController.text, "verification_for":verify
+  final params = {"email": emailController.text, "verification_for":verify
           };
           
   print("Forgot Password API Params: ${params}");
@@ -271,7 +271,7 @@ verifyEmailInput(context){
 }
 
 verifyEmailAPI(context) async {
-  final params = {"otp": otpController.text, "verification_for":verify, "emailphone": emailController.text};
+  final params = {"otp": otpController.text, "verification_for":verify, "email": emailController.text};
           
   print("Verify Otp API Params: ${params}");
   http.post(
@@ -432,8 +432,8 @@ verifyPhoneAPI(context) async {
     print("Verify Otp Response: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
-        appPreference.verified = res["verified"];
-          print("Verified: ${res["verified"]}");
+        appPreference.verified = res["data"]["verified"];
+          print("Verified: ${res["data"]["verified"]}");
          
 
           Navigator.pop(context);

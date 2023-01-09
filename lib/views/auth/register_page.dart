@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:thirumanam/controller/communication_register.dart';
 import 'package:thirumanam/controller/stepper_register_controller.dart';
+import 'package:thirumanam/preferences/app_preference.dart';
 import '../../controller/address_register_controller.dart';
 import '../../controller/carrier_deatils_controller.dart';
 import '../../controller/family_details_controller.dart';
@@ -21,12 +22,14 @@ class RegisterAuth extends StatefulWidget {
 
 class _RegisterAuthState extends State<RegisterAuth> {
   String countryCodeController = "+91";
+  final AppPreference appPreference = Get.find();
   
   @override
   void initState() {
     super.initState();
     countryCodeController = "+91";
     mobileNumber = '';
+
     verify = "MOBILE_REGISTRATION";
     _loadCounter();
   }
@@ -742,21 +745,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      suffixIcon:  controller.appPreference.verified == false ? Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              right: 5.0, top: 8.0, bottom: 8.0),
-                          child: ElevatedButton(
-                            child: Text("Sent O1tp"),
-                            onPressed: () {
-                              print(flag);
-                              // print(controller.veri);
-                              print("111");
-                              controller.forgotPhoneInput(context);
-                            },
-                          ),
-                        ),
-                      ) : Container(
+                      suffixIcon:  appPreference.verified == false ? Container(
                         child: Padding(
                           padding: const EdgeInsets.only(
                               right: 5.0, top: 8.0, bottom: 8.0),
@@ -769,6 +758,12 @@ class _RegisterAuthState extends State<RegisterAuth> {
                               controller.forgotPhoneInput(context);
                             },
                           ),
+                        ),
+                      ) : Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 5.0, top: 8.0, bottom: 8.0),
+                          child: Icon(Icons.verified_rounded, color: Colors.blue,)
                         ),
                       ), 
                       prefixIcon: Container(
@@ -1239,70 +1234,70 @@ class _RegisterAuthState extends State<RegisterAuth> {
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  controller: controller2.DoorNoController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: "Door no",
-                    labelText: "Door no",
-                    hintStyle: TextStyle(fontFamily: "nunto"),
-                    labelStyle: TextStyle(fontFamily: "nunto"),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 15),
-                      child: Icon(Icons.people, color: Colors.black),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: controller2.StreetController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: "Street",
-                    labelText: "Street",
-                    hintStyle: TextStyle(fontFamily: "nunto"),
-                    labelStyle: TextStyle(fontFamily: "nunto"),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 15),
-                      child: Icon(Icons.people, color: Colors.black),
+                  TextFormField(
+                    controller: controller2.DoorNoController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Door no",
+                      labelText: "Door no",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: controller2.AreaController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: "Area",
-                    labelText: "Area",
-                    hintStyle: TextStyle(fontFamily: "nunto"),
-                    labelStyle: TextStyle(fontFamily: "nunto"),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 15),
-                      child: Icon(Icons.people, color: Colors.black),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: controller2.StreetController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Street",
+                      labelText: "Street",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: controller2.AreaController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Area",
+                      labelText: "Area",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
                 SizedBox(
                   height: 30,
                 ),

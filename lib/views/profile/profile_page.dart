@@ -323,6 +323,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         textInputAction: TextInputAction.done,
                         maxLines: 1,
                         decoration: InputDecoration(
+                          fillColor: Colors.grey.shade100,
+                          filled: true,
                           labelText: "Mobile Number",
                           hintStyle: TextStyle(fontFamily: "nunto"),
                           labelStyle: TextStyle(
@@ -394,10 +396,10 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: ExpansionTileCard(
               // key: cardB,
-              expandedTextColor: Colors.red,
+              // expandedTextColor: Colors.red,
               leading: CircleAvatar(child: Text('B')),
-              title: Text('Tap me!'),
-              subtitle: Text('I expand, too!'),
+              title: Text('Communication Details'),
+              subtitle: Text('Edit Preference'),
               children: <Widget>[
                 Divider(
                   thickness: 1.0,
@@ -410,14 +412,1058 @@ class _ProfilePageState extends State<ProfilePage> {
                       horizontal: 16.0,
                       vertical: 8.0,
                     ),
-                    child: Text(
-                     controller.emailController.text,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 16),
+                    child: Column(children: [
+                      CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Select Religion',
+                              items: const ['HINDU', 'No Religion'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Select Community',
+                              items: const ['Nothing', 'No commucation'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Mother Tounge',
+                              items: const ['Tamil', 'English'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Caste',
+                              items: const ['No_Caste', 'BC'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Sub-Caste',
+                              items: const ['No_sub_caste', 'Kammalar'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            
+                            
+                    ],),
+                  ),
+
+                  
+                ),
+                //
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: ExpansionTileCard(
+              // key: cardB,
+              // expandedTextColor: Colors.red,
+              leading: CircleAvatar(child: Text('B')),
+              title: Text('Address Details'),
+              subtitle: Text('Edit Preference'),
+              children: <Widget>[
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 180),
+                          child: Text(
+                           "Communcation Address",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+
+                         SizedBox(height: 30,),
+                             TextFormField(
+                    // controller: controller2.DoorNoController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Door no",
+                      labelText: "Door no",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
                     ),
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    // controller: controller2.StreetController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Street",
+                      labelText: "Street",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    // controller: controller2.AreaController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Area",
+                      labelText: "Area",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                SizedBox(
+                  height: 30,
+                ),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'City',
+                              items: const ['Chennai', 'Maduari'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'District',
+                              items: const ['Chennai', 'Maduari'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'State',
+                              items: const ['Tamilnadu', 'Kerala'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Country',
+                              items: const ['India', 'US'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Nationality',
+                              items: const ['Indian', 'American'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                      ],
+                    ),
+                  ),
+
+                  
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 180),
+                          child: Text(
+                           "Permanent Address ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                             TextFormField(
+                    // controller: controller2.DoorNoController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Door no",
+                      labelText: "Door no",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    // controller: controller2.StreetController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Street",
+                      labelText: "Street",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    // controller: controller2.AreaController,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: "Area",
+                      labelText: "Area",
+                      hintStyle: TextStyle(fontFamily: "nunto"),
+                      labelStyle: TextStyle(fontFamily: "nunto"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.people, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                SizedBox(
+                  height: 30,
+                ),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'City',
+                              items: const ['Chennai', 'Maduari'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'District',
+                              items: const ['Chennai', 'Maduari'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'State',
+                              items: const ['Tamilnadu', 'Kerala'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                             CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Country',
+                              items: const ['India', 'US'],
+                              controller: controller.emailController,
+                              
+                            ),
+                      ],
+                    ),
+                  ),
+
+                  
+                ),
+                //
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: ExpansionTileCard(
+              // key: cardB,
+              // expandedTextColor: Colors.red,
+              leading: CircleAvatar(child: Text('B')),
+              title: Text('Personal Details'),
+              subtitle: Text('Edit Preference'),
+              children: <Widget>[
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(children: [
+                      TextFormField(
+                  // controller: controller3.HeightController,
+                 style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Height",
+                    labelText: "Height",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller3.WeightController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Weight",
+                    labelText: "Weight",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                //  controller: controller3.HobbiesController,
+                 style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Hobbies",
+                    labelText: "Hobbies",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Skin Tone',
+                              items: const ['Fair', 'Medium', 'Light', 'Dark'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Diet',
+                              items: const ['Vegitarian', 'Non-Vegitarian'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Martial Details',
+                              items: const ['Single', 'Married', 'Divorce'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            TextFormField(
+                  // controller: controller3.NoChildernController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "No.of Children",
+                    labelText: "No.of Children",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller3.ChildernStatusController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Children Status",
+                    labelText: "Children Status",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+
+                    ],),
+                  ),
+
+                  
+                ),
+                //
+              ],
+            ),
+          ),
+
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: ExpansionTileCard(
+              // key: cardB,
+              // expandedTextColor: Colors.red,
+              leading: CircleAvatar(child: Text('B')),
+              title: Text('Carrier & Working Details'),
+              subtitle: Text('Edit Preference'),
+              children: <Widget>[
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(
+                      children: [
+                         CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Educational Qualification',
+                              items: const ['B.E', 'B.Com', 'B.Sc'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Working in',
+                              items: const ['Chennai', 'Maduari', 'Banglore'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+
+                            TextFormField(
+                  // controller: controller4.WorkingInController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Working as",
+                    labelText: "Working as",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller4.CompanydetailsController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Company Details",
+                    labelText: "Company Details",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller4.AnnualIcome,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Annual Income",
+                    labelText: "Annual Income",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                      ],
+                    ),
+                  ),
+
+                  
+                ),
+                //
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: ExpansionTileCard(
+              // key: cardB,
+              // expandedTextColor: Colors.red,
+              leading: CircleAvatar(child: Text('B')),
+              title: Text('Jathagam Details'),
+              subtitle: Text('Edit Preference'),
+              children: <Widget>[
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(children: [
+                       
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Rasi',
+                              items: const [ 'Aries',
+                    'Taurus',
+                    'Gemini',
+                    'Cancer',
+                    'Leo',
+                    'Virgo',
+                    'Libra',
+                    'Scorpio',
+                    'Sagittarius',
+                    'Capricorn',
+                    'Aquarius',
+                    'Pisces'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Natchathiram',
+                              items: const [ 'Ashwini',
+                    'Bharani',
+                    'Krittika',
+                    'Rohini',
+                    'Mrighasira',
+                    'Ardra',
+                    'Punarvasu',
+                    'Pushya',
+                    'Ashlesha',
+                    'Magha',
+                    'Purva Phalguni',
+                    'Uttara Phalguni',
+                    'Hasta',
+                    'Chitra',
+                    'Swati',
+                    'Vishaka',],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Laknam',
+                              items: const ['Ashwini',
+                    'Bharani',
+                    'Krittika',
+                    'Rohini',
+                    'Mrighasira',
+                    'Ardra',
+                    'Punarvasu',
+                    'Pushya',
+                    'Ashlesha',
+                    'Magha',
+                    'Purva Phalguni',
+                    'Uttara Phalguni',
+                    'Hasta',
+                    'Chitra',
+                    'Swati',
+                    'Vishaka',],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Gothram',
+                              items: const ['Yes', 'No'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Kuladeivam',
+                              items: const ['Yes', 'No'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Dosham',
+                              items: const ['Yes', 'No'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            TextFormField(
+                  // controller: controller5.DoshamController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "If Dosham Yes Details",
+                    labelText: "If Dosham Yes Details",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                    ],),
+                  ),
+
+                  
+                ),
+                //
+              ],
+            ),
+          ),
+
+
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: ExpansionTileCard(
+              // key: cardB,
+              // expandedTextColor: Colors.red,
+              leading: CircleAvatar(child: Text('B')),
+              title: Text('Family Details'),
+              subtitle: Text('Edit Preference'),
+              children: <Widget>[
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Column(
+                      children:[
+                         TextFormField(
+                //  controller: controller6.FatherNameController,
+                 style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Father Name",
+                    labelText: "Father Name",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller6.FatherOccupationController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Father Occupation",
+                    labelText: "Father Occupation",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller6.MotherNameController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Mother Name",
+                    labelText: "Mother Name",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  // controller: controller6.MotherOccupationController,
+                  
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Mother Occupation",
+                    labelText: "Mother Occupation",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+
+                CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter No of Brother',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter No of Brother Married',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter No of Sister',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter No of Sister Married',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Own Vehicle',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Own House',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Own Lands',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+                            CustomDropdown(
+                              
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              // fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                                fieldSuffixIcon: Icon(Icons.arrow_drop_down_circle, color: Colors.blue,),
+                              hintText: 'Enter Own Flats',
+                              items: const ['0', '1'],
+                              controller: controller.emailController,
+                              
+                            ),
+                            SizedBox(height: 30,),
+
+                            TextFormField(
+                  // controller: controller6.ExpectationController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: "Expectation",
+                    labelText: "Expectation",
+                    hintStyle: TextStyle(fontFamily: "nunto"),
+                    labelStyle: TextStyle(fontFamily: "nunto"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Icon(Icons.people, color: Colors.black),
+                    ),
+                  ),
+                ),
+                      ],
+                    ),
+                  ),
+
+                  
                 ),
                 //
               ],
@@ -431,7 +1477,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           Positioned(
-            top: screenHeight * (4 / 9) - 80 / 2,
+            top: screenHeight * (4 / 9) - 60 / 2,
             left: 16,
             right: 16,
             child: Container(

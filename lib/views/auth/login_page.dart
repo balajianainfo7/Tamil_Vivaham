@@ -88,20 +88,26 @@ class _LoginAuthState extends State<LoginAuth> {
     return SafeArea(
       child: Scaffold(
         body: Container(
+          
           decoration: BoxDecoration(
               image: DecorationImage(
+                
                   image: NetworkImage(
-                      "https://media.istockphoto.com/id/1324575840/photo/the-groom-proposes-to-his-bride-and-puts-the-ring-on-his-finger-close-up-wedding-ceremony-and.jpg?b=1&s=170667a&w=0&k=20&c=_u_B517p-F9r56Dbzzc5CvUTw4V9Z29L-VG3gwqbJP8="),
+                      "https://images.unsplash.com/photo-1480623826718-27e89ac63a4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"),
                   fit: BoxFit.fill)),
+                  
           child: Container(
+            
             child: Align(
               alignment: Alignment.bottomCenter,
               child: RotatedBox(
                 quarterTurns: -2,
                 child: Container(
+                  
                     // padding: EdgeInsets.only(top: 100),
                     child: Stack(
                   children: <Widget>[
+                    // Text("data", style: TextStyle(color: Colors.black, fontSize: 20),),
                     // Image(image: NetworkImage("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"), width: 10,),
                     Container(
                       color: Colors.black,
@@ -118,18 +124,22 @@ class _LoginAuthState extends State<LoginAuth> {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 0, top: 10, bottom: 10),
-                                  child: Icon(
-                                    Icons.arrow_circle_left_outlined,
-                                    color: Colors.black,
-                                    size: 32,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 0,bottom: 200),
+                                    child: Icon(
+                                      Icons.arrow_circle_left_outlined,
+                                      color: Colors.white,
+                                      size: 32,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Image(image: NetworkImage("https://images.unsplash.com/photo-1480623826718-27e89ac63a4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), width: MediaQuery.of(context).size.width,fit: BoxFit.contain,)
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -177,14 +187,21 @@ class _LoginAuthState extends State<LoginAuth> {
                                 ),
                                 Padding(
                                     padding:
-                                        EdgeInsets.only(bottom: 50, right: 280),
-                                    child: Text("Login",
-                                        style: GoogleFonts.nunito(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall,
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold))),
+                                        EdgeInsets.only(bottom: 50, right: 200, left: 22),
+                                    child: Row(
+                                      children: [
+                                        Text("Login",
+                                            style: GoogleFonts.nunito(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold)),
+                                                SizedBox(width: 10,),
+                                                Image.asset(("assets/images/2029711.png"),width: 30, height: 30,)
+                                      ],
+                                      
+                                    )),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20, bottom: 10, top: 20),
