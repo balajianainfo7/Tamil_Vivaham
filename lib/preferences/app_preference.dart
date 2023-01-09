@@ -30,7 +30,7 @@ class AppPreference extends PreferenceHelper {
   }
 
   @override
-  bool? get verified => pref.read("verified") ?? true&&false;
+  bool? get verified => pref.read("verified") ?? false;
 
   @override
   set verified(bool? verified) {

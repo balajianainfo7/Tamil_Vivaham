@@ -31,12 +31,12 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
 
   bool isEmailCorrect = false;
   String mobileNumber = '';
-  String verify = "MOBILE_REGISTRATION";
+  String verify = "FORGOT_PASSWORD";
   @override
   void initState() {
     super.initState();
     mobileNumber = '';
-    verify = "MOBILE_REGISTRATION";
+    verify = "FORGOT_PASSWORD";
   }
 
   @override

@@ -12,7 +12,7 @@ class ForgotOtpController extends BaseController{
 
 var isEmailCorrect = "".obs;
 TextEditingController mobileController = TextEditingController(text: '');
-String verify = "MOBILE_REGISTRATION";
+String verify = "FORGOT_PASSWORD";
 
 checkInput(context){
   if(mobileController.text.isEmpty){
@@ -40,7 +40,13 @@ forgotOtpAPI(context) async {
     print("Forgot Password Response: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
+        appPreference.verified = res['data']["verified"];
+          print("Verified: ${res['data']["verified"]}");
           // appPreference.accessToken = res["data"];
+          appPreference.accessToken = res["data"];
+          
+          print("Token: ${res["data"]}");
+          
           Get.toNamed(RouteNames.verifyPassowrd);
           
       }else{

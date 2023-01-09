@@ -306,7 +306,7 @@ forgotPhoneInput(context){
 }
 
 forgotPhoneAPI(context) async {
-  final params = {"emailphone": mobileNumberController.text, "verification_for":verify
+  final params = {"mobile_number": mobileNumberController.text, "verification_for":verify
           };
           
   print("Forgot Password API Params: ${params}");
@@ -317,6 +317,8 @@ forgotPhoneAPI(context) async {
     print("Forgot Password Response: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
+        appPreference.verified = res["data"]["verified"];
+          print("Verified: ${res["data"]["verified"]}");
         String verify = "MOBILE_REGISTRATION";
         String mobileNumber = '';
         
@@ -420,7 +422,7 @@ verifyPhoneInput(context){
 }
 
 verifyPhoneAPI(context) async {
-  final params = {"otp": otp1Controller.text, "verification_for":verify, "emailphone": mobileNumberController.text};
+  final params = {"otp": otp1Controller.text, "verification_for":verify, "mobile_number": mobileNumberController.text};
           
   print("Verify Otp API Params: ${params}");
   http.post(
@@ -430,15 +432,10 @@ verifyPhoneAPI(context) async {
     print("Verify Otp Response: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
-          preference(context) async{
-          SharedPreferences preferences = await SharedPreferences.getInstance();
-         preferences.setBool('verified', res['verified']);
-        
-}
-appPreference.verified = true&&false;
-print("appPreference.verified = true&&false");
-print(appPreference.verified = true&&false);
-          // appPreference.accessToken = res["data"];
+        appPreference.verified = res["verified"];
+          print("Verified: ${res["verified"]}");
+         
+
           Navigator.pop(context);
           print("object");
           

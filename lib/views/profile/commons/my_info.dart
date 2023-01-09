@@ -8,47 +8,49 @@ class MyInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RadialProgress(
-            width: 4,
-            goalCompleted: 0.9,
-            child: RoundedImage(
-              imagePath: "https://lh3.googleusercontent.com/ogw/AOh-ky0hZdAOkIToEv-0GuZnQW4GcfUbCgNWK2ye7WMZAHM=s32-c-mo",
-              size: Size.fromWidth(120.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RadialProgress(
+              width: 4,
+              goalCompleted: 0.9,
+              child: RoundedImage(
+                imagePath: "https://lh3.googleusercontent.com/ogw/AOh-ky0hZdAOkIToEv-0GuZnQW4GcfUbCgNWK2ye7WMZAHM=s32-c-mo",
+                size: Size.fromWidth(120.0),
+              ),
             ),
-          ),
-          SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Balaji",
-                style: whiteNameTextStyle,
-              ),
-              Text(
-                ", 25",
-                style: whiteNameTextStyle,
-              ),
-            ],
-          ),
-          SizedBox(height: 10,),
-          Row(
+            SizedBox(height: 10,),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  "assets/icons/location_pin.png",
-                  width: 20.0,
-                  color: Colors.white,
+                Text(
+                  "Balaji",
+                  style: whiteNameTextStyle,
                 ),
                 Text(
-                  "Maduari",
-                  style: whiteSubHeadingTextStyle,
-                )
+                  ", 25",
+                  style: whiteNameTextStyle,
+                ),
               ],
-          ),
-        ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/icons/location_pin.png",
+                    width: 20.0,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    "Maduari",
+                    style: whiteSubHeadingTextStyle,
+                  )
+                ],
+            ),
+          ],
+        ),
       ),
     );
   }

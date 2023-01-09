@@ -31,6 +31,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
     _loadCounter();
   }
   final controller = Get.find<StepperRegisterController>();
+  
   // final tick = controller.veri;
   final controller1 = Get.find<AdresssRegisterController>();
   final controller2 = Get.find<CommunicationRegisterController>();
@@ -741,7 +742,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      suffixIcon:  flag ? Container(
+                      suffixIcon:  controller.appPreference.verified == false ? Container(
                         child: Padding(
                           padding: const EdgeInsets.only(
                               right: 5.0, top: 8.0, bottom: 8.0),
@@ -755,7 +756,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                             },
                           ),
                         ),
-                      ) :  Container(
+                      ) : Container(
                         child: Padding(
                           padding: const EdgeInsets.only(
                               right: 5.0, top: 8.0, bottom: 8.0),

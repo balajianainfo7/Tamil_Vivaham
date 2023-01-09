@@ -32,7 +32,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   bool isEmailCorrect = false;
 
   String mobileNumber = '';
-  String verify = "MOBILE_REGISTRATION";
+  String verify = "FORGOT_PASSWORD";
   bool enableBtn = false;
   bool isAPIcallProcess = false;
 
@@ -40,7 +40,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   void initState() {
     super.initState();
     mobileNumber = '';
-    verify = "MOBILE_REGISTRATION";
+    verify = "FORGOT_PASSWORD";
   }
 
   @override
