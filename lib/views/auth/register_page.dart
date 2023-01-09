@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:thirumanam/controller/communication_register.dart';
 import 'package:thirumanam/controller/stepper_register_controller.dart';
@@ -11,7 +12,8 @@ import '../../controller/carrier_deatils_controller.dart';
 import '../../controller/family_details_controller.dart';
 import '../../controller/jathagam_details_controller.dart';
 import '../../controller/personal_details_controller.dart';
-
+// import 'package:expansion_card/expansion_card.dart';
+bool flag = true&&false;
 class RegisterAuth extends StatefulWidget {
   @override
   _RegisterAuthState createState() => _RegisterAuthState();
@@ -19,14 +21,17 @@ class RegisterAuth extends StatefulWidget {
 
 class _RegisterAuthState extends State<RegisterAuth> {
   String countryCodeController = "+91";
+  
   @override
   void initState() {
     super.initState();
     countryCodeController = "+91";
     mobileNumber = '';
     verify = "MOBILE_REGISTRATION";
+    _loadCounter();
   }
   final controller = Get.find<StepperRegisterController>();
+  // final tick = controller.veri;
   final controller1 = Get.find<AdresssRegisterController>();
   final controller2 = Get.find<CommunicationRegisterController>();
   final controller3 = Get.find<PersonalRegisterController>();
@@ -36,13 +41,19 @@ class _RegisterAuthState extends State<RegisterAuth> {
 
   String mobileNumber = '';
   String verify = "FORGOT_PASSWORD";
+
   
-  
+ _loadCounter() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      flag = (preferences.getBool('verified') ?? true&&false)  as bool;
+      print(flag);
+       });
+  }
   bool isCompleted = false;
  
   bool _secureText = true;
-  bool? remember = false;
-
   showHide() {
     setState(() {
       _secureText = !_secureText;
@@ -52,201 +63,228 @@ class _RegisterAuthState extends State<RegisterAuth> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"),
-                  fit: BoxFit.cover)),
-          child: Container(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: RotatedBox(
-                quarterTurns: -2,
-                child: Container(
-                    // padding: EdgeInsets.only(top: 100),
-                    child: Stack(
-                  children: <Widget>[
-                    // Image(image: NetworkImage("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"), width: 10,),
-                    Container(
-                      color: Colors.black,
-                      width: 10,
-                      height: 10,
-                    ),
-                    RotatedBox(
-                      quarterTurns: 2,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 0, top: 10, bottom: 10),
-                                  child: Icon(
-                                    Icons.arrow_circle_left_outlined,
-                                    color: Colors.black,
-                                    size: 32,
+      
+      child: RefreshIndicator(
+  displacement: 250,
+  backgroundColor: Colors.blue,
+  color: Colors.white,
+  strokeWidth: 3,
+  triggerMode: RefreshIndicatorTriggerMode.anywhere,
+  onRefresh: () async {
+    await Future.delayed(Duration(milliseconds: 1500));
+    setState(() {
+      
+    });
+  },
+        child: Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"),
+                    fit: BoxFit.cover)),
+            child: Container(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RotatedBox(
+                  quarterTurns: -2,
+                  child: Container(
+                      // padding: EdgeInsets.only(top: 100),
+                      child: Stack(
+                    children: <Widget>[
+                      // Image(image: NetworkImage("https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"), width: 10,),
+                      Container(
+                        color: Colors.black,
+                        width: 10,
+                        height: 10,
+                      ),
+                      RotatedBox(
+                        quarterTurns: 2,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 0, top: 10, bottom: 10),
+                                    child: Icon(
+                                      Icons.arrow_circle_left_outlined,
+                                      color: Colors.black,
+                                      size: 32,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-
-                    //stack overlaps widgets
-                    Opacity(
-                      //semi red clippath with more height and with 0.5 opacity
-                      opacity: 0.5,
-                      child: ClipPath(
-                        clipper: WaveClipper(), //set our custom wave clipper
-                        child: Container(
-                          color: Colors.white,
-                          height: 630,
+      
+                      //stack overlaps widgets
+                      Opacity(
+                        //semi red clippath with more height and with 0.5 opacity
+                        opacity: 0.5,
+                        child: ClipPath(
+                          clipper: WaveClipper(), //set our custom wave clipper
+                          child: Container(
+                            color: Colors.white,
+                            height: 630,
+                          ),
                         ),
                       ),
-                    ),
-
-                    ClipPath(
-                      //upper clippath with less height
-                      clipper: WaveClipper(), //set our custom wave clipper.
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 50),
-                        color: Colors.white,
-                        height: 610,
-                        alignment: Alignment.center,
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 250),
-                                  child: Container(
-                                    width: 100,
-                                    height: 50,
-                                    child: StepProgressIndicator(
-                                      totalSteps: 10,
-                                      currentStep: 6,
-                                      selectedColor: Colors.grey,
-                                      unselectedColor: Colors.blue,
+      
+                      ClipPath(
+                        //upper clippath with less height
+                        clipper: WaveClipper(), //set our custom wave clipper.
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 50),
+                          color: Colors.white,
+                          height: 610,
+                          alignment: Alignment.center,
+                          child: RotatedBox(
+                            quarterTurns: 2,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 250),
+                                    child: Container(
+                                      width: 100,
+                                      height: 50,
+                                      child: StepProgressIndicator(
+                                        totalSteps: 10,
+                                        currentStep: 6,
+                                        selectedColor: Colors.grey,
+                                        unselectedColor: Colors.blue,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 5, right: 150, left: 30),
-                                        child: Text("Register",
-                                            style: GoogleFonts.nunito(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .displaySmall,
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold))),
-                                    Padding(
-                                        padding: EdgeInsets.only(top: 5),
-                                        child: Text("Go to login",
-                                            style: GoogleFonts.nunito(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .displaySmall,
-                                                fontSize: 20,
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold))),
-                                  ],
-                                ),
-                                Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
-                                              primary: Color(0xFF0C8CE9)),
-                                        ),
-                                        child: Container(
-                                          child: Stepper(
-                                            // controlsBuilder: (context, ControlsDetails details)
-                                            type: StepperType.vertical,
-                                            physics: ScrollPhysics(),
-
-                                            steps: getStep(),
-                                            currentStep: controller.currentStep,
-                                            onStepContinue: () {
-                                              final isLastStep =
-                                                  controller.currentStep ==
-                                                      getStep().length - 1;
-                                              final isFrstStep =
-                                                  controller.currentStep == 0;
-                                              final issecondStep =
-                                                  controller.currentStep == 1;
-                                              final isthirdStep =
-                                                  controller.currentStep == 2;
-                                                  final isFouth =
-                                                  controller.currentStep == 3;
-                                                  final isFifthStep =
-                                                  controller.currentStep == 4;
-                                                  final isSixthStep =
-                                                  controller.currentStep == 5;
-
-
-                                              if (isLastStep) {
-                                                controller6.checkInput(context);
-                                                print('Completed');
-                                              } else if (isFrstStep) {
-                                                 controller.checkInput(context);
-                                                print("object");
-                                              }else if (issecondStep) {
-                                                controller1.checkInput(context);
-                                                print("object");
-                                              } else if (isthirdStep) {
-                                                controller2.checkInput(context);
-                                                print("object");
-                                              }else if (isFouth) {
-                                                controller3.checkInput(context);
-                                                print("object");
-                                              }else if (isFifthStep) {
-                                                controller4.checkInput(context);
-                                                print("object");
-                                              }else if (isSixthStep) {
-                                                controller5.checkInput(context);
-                                                print("object");
-                                              } else {
-                                                print(isFrstStep);
-                                                // setState(() => currentStep += 1);
-                                              }
-                                            },
-                                            onStepTapped: (step) => setState(
-                                                () => controller.currentStep =
-                                                    step),
-                                            onStepCancel:
-                                                controller.currentStep == 0
-                                                    ? null
-                                                    : () => setState(() =>
-                                                        controller
-                                                            .currentStep -= 1),
-
-                                            controlsBuilder: ((BuildContext
-                                                    context,
-                                                ControlsDetails controls,
-                                                {VoidCallback? onStepContinue,
-                                                VoidCallback? onStepCancel}) {
-                                              final isLastStep =
-                                                  controller.currentStep ==
-                                                      getStep().length - 1;
-                                              return Container(
-                                                margin:
-                                                    EdgeInsets.only(top: 50),
-                                                child: Row(
-                                                  children: [
-                                                    if (controller.currentStep !=
-                                                        0)
+                                  Row(
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 5, right: 150, left: 30),
+                                          child: Text("Register",
+                                              style: GoogleFonts.nunito(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold))),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 5),
+                                          child: Text("Go to login",
+                                              style: GoogleFonts.nunito(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall,
+                                                  fontSize: 20,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold))),
+                                    ],
+                                  ),
+                                  Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: ColorScheme.light(
+                                                primary: Color(0xFF0C8CE9)),
+                                          ),
+                                          child: Container(
+                                            child: Stepper(
+                                              // controlsBuilder: (context, ControlsDetails details)
+                                              type: StepperType.vertical,
+                                              physics: ScrollPhysics(),
+      
+                                              steps: getStep(),
+                                              currentStep: controller.currentStep,
+                                              onStepContinue: () {
+                                                final isLastStep =
+                                                    controller.currentStep ==
+                                                        getStep().length - 1;
+                                                final isFrstStep =
+                                                    controller.currentStep == 0;
+                                                final issecondStep =
+                                                    controller.currentStep == 1;
+                                                final isthirdStep =
+                                                    controller.currentStep == 2;
+                                                    final isFouth =
+                                                    controller.currentStep == 3;
+                                                    final isFifthStep =
+                                                    controller.currentStep == 4;
+                                                    final isSixthStep =
+                                                    controller.currentStep == 5;
+      
+      
+                                                if (isLastStep) {
+                                                  
+                                                  controller6.checkInput(context);
+                                                  print('Completed');
+                                                } else if (isFrstStep) {
+                                                   controller.checkInput(context);
+                                                  print("object");
+                                                }else if (issecondStep) {
+                                                  controller1.checkInput(context);
+                                                  print("object");
+                                                } else if (isthirdStep) {
+                                                  controller2.checkInput(context);
+                                                  print("object");
+                                                }else if (isFouth) {
+                                                  controller3.checkInput(context);
+                                                  print("object");
+                                                }else if (isFifthStep) {
+                                                  controller4.checkInput(context);
+                                                  print("object");
+                                                }else if (isSixthStep) {
+                                                  controller5.checkInput(context);
+                                                  print("object");
+                                                } else {
+                                                  print(isFrstStep);
+                                                  // setState(() => currentStep += 1);
+                                                }
+                                              },
+                                              onStepTapped: (step) => setState(
+                                                  () => controller.currentStep =
+                                                      step),
+                                              onStepCancel:
+                                                  controller.currentStep == 0
+                                                      ? null
+                                                      : () => setState(() =>
+                                                          controller
+                                                              .currentStep -= 1),
+      
+                                              controlsBuilder: ((BuildContext
+                                                      context,
+                                                  ControlsDetails controls,
+                                                  {VoidCallback? onStepContinue,
+                                                  VoidCallback? onStepCancel}) {
+                                                final isLastStep =
+                                                    controller.currentStep ==
+                                                        getStep().length - 1;
+                                                return Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 50),
+                                                  child: Row(
+                                                    children: [
+                                                      if (controller.currentStep !=
+                                                          0)
+                                                        ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                25.0))),
+                                                            onPressed: controls
+                                                                .onStepCancel,
+                                                            child: Text("Back")),
+                                                      SizedBox(
+                                                        width: 12,
+                                                      ),
                                                       ElevatedButton(
                                                           style: ElevatedButton.styleFrom(
                                                               shape: RoundedRectangleBorder(
@@ -255,39 +293,27 @@ class _RegisterAuthState extends State<RegisterAuth> {
                                                                           .circular(
                                                                               25.0))),
                                                           onPressed: controls
-                                                              .onStepCancel,
-                                                          child: Text("Back")),
-                                                    SizedBox(
-                                                      width: 12,
-                                                    ),
-                                                    ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            25.0))),
-                                                        onPressed: controls
-                                                            .onStepContinue,
-                                                        child: Text(isLastStep
-                                                            ? "Confirm"
-                                                            : "Next")),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                            //  controlsBuilder: (BuildContext context, ControlsDetails details)
+                                                              .onStepContinue,
+                                                          child: Text(isLastStep
+                                                              ? "Confirm"
+                                                              : "Next")),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                              //  controlsBuilder: (BuildContext context, ControlsDetails details)
+                                            ),
                                           ),
                                         ),
-                                      ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )),
+                    ],
+                  )),
+                ),
               ),
             ),
           ),
@@ -317,6 +343,40 @@ class _RegisterAuthState extends State<RegisterAuth> {
                   SizedBox(
                     height: 30,
                   ),
+            //       ExpansionCard(
+            //   borderRadius: 20,
+            //   background: Image(image: NetworkImage("https://media.geeksforgeeks.org/auth-dashboard-uploads/rd-sale-logo-min.png"),fit: BoxFit.cover,), 
+              
+            //   // NetworkImage(
+            //   //   ,
+            //   //   fit: BoxFit.cover,
+            //   // ),
+            //   title: Container(
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: <Widget>[
+            //         Text(
+            //           "GeeksForGeeks",
+            //           style: TextStyle(
+            //             fontSize: 30,
+            //             color: Colors.black,
+            //           ),
+            //         ),
+            //         Text(
+            //           "A Computer Science Portal",
+            //           style: TextStyle(fontSize: 20, color: Colors.black),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            //   children: <Widget>[
+            //     Container(
+            //       margin: EdgeInsets.symmetric(horizontal: 7),
+            //       child: Text("Main Content",
+            //           style: TextStyle(fontSize: 20, color: Colors.black)),
+            //     )
+            //   ],
+            // ),
                   DropdownButtonFormField(
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
@@ -637,9 +697,9 @@ class _RegisterAuthState extends State<RegisterAuth> {
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
                           context: context,
-                          initialDate: DateTime.now(),
+                          initialDate: DateTime(2018),
                           firstDate: DateTime(
-                              2000), //DateTime.now() - not to allow to choose before today.
+                              1980), //DateTime.now() - not to allow to choose before today.
                           lastDate: DateTime(2101));
                       if (pickedDate != null) {
                         if (kDebugMode) {
@@ -681,18 +741,35 @@ class _RegisterAuthState extends State<RegisterAuth> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      suffixIcon: Container(
+                      suffixIcon:  flag ? Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 5.0, top: 8.0, bottom: 8.0),
+                          child: ElevatedButton(
+                            child: Text("Sent O1tp"),
+                            onPressed: () {
+                              print(flag);
+                              // print(controller.veri);
+                              print("111");
+                              controller.forgotPhoneInput(context);
+                            },
+                          ),
+                        ),
+                      ) :  Container(
                         child: Padding(
                           padding: const EdgeInsets.only(
                               right: 5.0, top: 8.0, bottom: 8.0),
                           child: ElevatedButton(
                             child: Text("Sent Otp"),
                             onPressed: () {
+                              print(flag);
+                              // print(controller.veri);
+                              print("111");
                               controller.forgotPhoneInput(context);
                             },
                           ),
                         ),
-                      ),
+                      ), 
                       prefixIcon: Container(
                         // color: Colors.grey.withOpacity(0.8),
                         padding:
@@ -795,7 +872,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                   TextFormField(
                     controller: controller.passwordController,
                     
-
+                    obscureText: _secureText,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,
                       filled: true,
@@ -823,7 +900,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                   ),
                   TextFormField(
                     controller: controller.confirmPassowrdController,
-                    
+                    obscureText:_secureText,
 
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,

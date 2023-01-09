@@ -29,5 +29,13 @@ class AppPreference extends PreferenceHelper {
     pref.write("accessToken", accessToken);
   }
 
+  @override
+  bool? get verified => pref.read("verified") ?? true&&false;
+
+  @override
+  set verified(bool? verified) {
+    pref.write("verified", verified);
+  }
+
 
 }

@@ -7,14 +7,17 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thirumanam/controller/base_controller.dart';
 import 'package:thirumanam/utils/utils.dart';
+import 'package:thirumanam/views/auth/register_page.dart';
 import 'package:validators/validators.dart';
 
 import '../resources/app_routes.dart';
 import '../utils/api_config.dart';
 
 class StepperRegisterController extends BaseController{
+  
   var isEmailCorrect = "".obs;
   var currentStep = 0;
   String verify = "MOBILE_REGISTRATION";
@@ -30,6 +33,8 @@ TextEditingController mobileNumberController = TextEditingController(text: '');
 TextEditingController emailController = TextEditingController(text: '');
 TextEditingController passwordController = TextEditingController(text: '');
 TextEditingController confirmPassowrdController = TextEditingController(text: '');
+bool? veri;
+
 
 //  final TextEditingController mobileController = TextEditingController(text: '');
  var  dropdownValue = "SON";
@@ -79,6 +84,7 @@ TextEditingController confirmPassowrdController = TextEditingController(text: ''
 
 
   checkInput(context){
+    appPreference.verified = veri;
   if(firstNameController.text.isEmpty){
     showSnackBar("Enter First Name", context);
   }else if(lastNameController.text.isEmpty){
@@ -99,6 +105,7 @@ TextEditingController confirmPassowrdController = TextEditingController(text: ''
     showSnackBar("Enter Confirm Password", context);
   }
   else{
+    print(appPreference.verified);
       print("objecaaat");
       print(registerAPI(context));
       registerAPI(context);
@@ -127,8 +134,10 @@ registerAPI(context) async {
     if (res != null) {
       if (res.isNotEmpty && res["status"].toString() != 410) {
           appPreference.accessToken = res["data"].toString();
+          
           currentStep = 1;
           print(currentStep = 1);
+          
           print("balaji");
       }else{
         showSnackBar(res["message"].toString(), context);
@@ -154,13 +163,11 @@ forgotEmailInput(context){
 forgotEmailAPI(context) async {
   final params = {"emailphone": emailController.text, "verification_for":verify
           };
-          final headers = {
-            "x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNhNzEzMjMzYjY1YWQ4YzFkMzczNjhmIiwiaWF0IjoxNjcyODE3Njc1LCJleHAiOjE2NzI4MjEyNzV9.W0A-o8eqyWk0xuUSey7ko9L1RgPprJXz24F8xObwDpg"
-          };
+          
   print("Forgot Password API Params: ${params}");
   http.post(
       RestApiClient().otpCreate,
-      body: params, headers: headers).then((value) {
+      body: params).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("Forgot Password Response: ${res.toString()}");
     if (res != null) {
@@ -265,13 +272,11 @@ verifyEmailInput(context){
 
 verifyEmailAPI(context) async {
   final params = {"otp": otpController.text, "verification_for":verify, "emailphone": emailController.text};
-          final headers = {
-            "x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNhNzEzMjMzYjY1YWQ4YzFkMzczNjhmIiwiaWF0IjoxNjcyODE3Njc1LCJleHAiOjE2NzI4MjEyNzV9.W0A-o8eqyWk0xuUSey7ko9L1RgPprJXz24F8xObwDpg"
-          };
+          
   print("Verify Otp API Params: ${params}");
   http.post(
       RestApiClient().verifyOtp,
-      body: params, headers: headers).then((value) {
+      body: params).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("Verify Otp Response: ${res.toString()}");
     if (res != null) {
@@ -303,13 +308,11 @@ forgotPhoneInput(context){
 forgotPhoneAPI(context) async {
   final params = {"emailphone": mobileNumberController.text, "verification_for":verify
           };
-          final headers = {
-            "x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNhNzEzMjMzYjY1YWQ4YzFkMzczNjhmIiwiaWF0IjoxNjcyODE3Njc1LCJleHAiOjE2NzI4MjEyNzV9.W0A-o8eqyWk0xuUSey7ko9L1RgPprJXz24F8xObwDpg"
-          };
+          
   print("Forgot Password API Params: ${params}");
   http.post(
       RestApiClient().otpCreate,
-      body: params, headers: headers).then((value) {
+      body: params).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("Forgot Password Response: ${res.toString()}");
     if (res != null) {
@@ -418,17 +421,23 @@ verifyPhoneInput(context){
 
 verifyPhoneAPI(context) async {
   final params = {"otp": otp1Controller.text, "verification_for":verify, "emailphone": mobileNumberController.text};
-          final headers = {
-            "x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNhNzEzMjMzYjY1YWQ4YzFkMzczNjhmIiwiaWF0IjoxNjcyODE3Njc1LCJleHAiOjE2NzI4MjEyNzV9.W0A-o8eqyWk0xuUSey7ko9L1RgPprJXz24F8xObwDpg"
-          };
+          
   print("Verify Otp API Params: ${params}");
   http.post(
       RestApiClient().verifyOtp,
-      body: params, headers: headers).then((value) {
+      body: params).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("Verify Otp Response: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"] != 410) {
+          preference(context) async{
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+         preferences.setBool('verified', res['verified']);
+        
+}
+appPreference.verified = true&&false;
+print("appPreference.verified = true&&false");
+print(appPreference.verified = true&&false);
           // appPreference.accessToken = res["data"];
           Navigator.pop(context);
           print("object");
@@ -442,5 +451,7 @@ verifyPhoneAPI(context) async {
   });
 
 }
+
+
 
 }

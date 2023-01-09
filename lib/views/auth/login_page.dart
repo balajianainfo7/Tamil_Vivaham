@@ -23,6 +23,12 @@ class _LoginAuthState extends State<LoginAuth> {
   final controller = Get.find<RegisterController>();
 
   final _key = new GlobalKey<FormState>();
+   bool _secureText = true;
+  showHide() {
+    setState(() {
+      _secureText = !_secureText;
+    });
+  }
   check() {
 
   }
@@ -85,8 +91,8 @@ class _LoginAuthState extends State<LoginAuth> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80"),
-                  fit: BoxFit.cover)),
+                      "https://media.istockphoto.com/id/1324575840/photo/the-groom-proposes-to-his-bride-and-puts-the-ring-on-his-finger-close-up-wedding-ceremony-and.jpg?b=1&s=170667a&w=0&k=20&c=_u_B517p-F9r56Dbzzc5CvUTw4V9Z29L-VG3gwqbJP8="),
+                  fit: BoxFit.fill)),
           child: Container(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -226,6 +232,7 @@ class _LoginAuthState extends State<LoginAuth> {
                                         ),
                                         TextField(
                                           controller: controller.passwordController,
+                                          obscureText: _secureText,
                                           decoration: InputDecoration(
                                             hintText: "Password",
                                             hintStyle: TextStyle(color: AppColors.hintTextColor),

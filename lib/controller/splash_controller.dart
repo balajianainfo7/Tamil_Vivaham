@@ -11,13 +11,15 @@ class SplashController extends BaseController{
   }
 
   checkLogin(){
+    
     Future.delayed(Duration(seconds: 2)).then((value) {
-      if(appPreference.accessToken != null && appPreference.accessToken!.isEmpty){
-        Get.toNamed(RouteNames.welcome);
-      }else{
+      Get.toNamed(RouteNames.profile);
+      // if(appPreference.accessToken != null && appPreference.accessToken!.isEmpty){
+      //   Get.toNamed(RouteNames.welcome);
+      // }else{
         print("Token: ${appPreference.accessToken}");
-        Get.toNamed(RouteNames.dashboard);
-      }
+      //   Get.toNamed(RouteNames.dashboard);
+      // }
     });
   }
 }

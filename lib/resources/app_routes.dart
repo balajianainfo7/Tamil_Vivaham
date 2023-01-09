@@ -9,6 +9,7 @@ import 'package:thirumanam/views/dashboard/dashboard_page.dart';
 import 'package:thirumanam/views/forgot%20password/Forgot_password.dart';
 import 'package:thirumanam/views/forgot%20password/reset_password.dart';
 import 'package:thirumanam/views/forgot%20password/verify_passowrd_otp.dart';
+import 'package:thirumanam/views/profile/profile_page.dart';
 import 'package:thirumanam/views/search_page.dart';
 
 import '../views/auth/register_page.dart';
@@ -29,6 +30,7 @@ class Routes {
     GetPage(name: RouteNames.resetPassword, page: () => ResetPassword()),
     GetPage(name: RouteNames.verifyPassowrd, page: () => VerifyPassowrdOtp()),
     GetPage(name: RouteNames.search, page: () => SearchPage()),
+    GetPage(name: RouteNames.profile, page: () => ProfilePage()),
     // GetPage(name: RouteNames.sample, page: () => DatePickerPage(title: '',)),
   ];
 }
@@ -45,4 +47,5 @@ class RouteNames {
   static const resetPassword = '/reset_password';
   static const verifyPassowrd = '/verify_passowrd_otp';
   static const search= '/search_page';
+  static const profile= '/profile_page';
 }

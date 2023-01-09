@@ -12,7 +12,7 @@ class ForgotOtpController extends BaseController{
 
 var isEmailCorrect = "".obs;
 TextEditingController mobileController = TextEditingController(text: '');
-String verify = "FORGOT_PASSWORD";
+String verify = "MOBILE_REGISTRATION";
 
 checkInput(context){
   if(mobileController.text.isEmpty){
