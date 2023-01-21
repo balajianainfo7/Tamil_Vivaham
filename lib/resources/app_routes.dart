@@ -17,10 +17,11 @@ import 'package:thirumanam/views/profile/profile_page.dart';
 import 'package:thirumanam/views/proposal_page/wishlist_page.dart';
 // import 'package:thirumanam/views/recivied_proposal.dart';
 import 'package:thirumanam/views/search_page.dart';
-import 'package:thirumanam/views/story_post.dart';
+import 'package:thirumanam/views/news%20feed/story_post.dart';
 // import 'package:thirumanam/views/send_proposal.dart';
 
 import '../views/auth/register_page.dart';
+import '../views/detailed filter/detailed_filter_page.dart';
 
 class Routes {
   //this is to prevent anyone from instantiating this object
@@ -44,6 +45,7 @@ class Routes {
     GetPage(name: RouteNames.wishList, page: () => WishListReceived()),
     GetPage(name: RouteNames.resetPassword, page: () => ResetPassword()),
     GetPage(name: RouteNames.storyPost, page: () => StroyPost()),
+    GetPage(name: RouteNames.detailedFilter, page: () => DetailedFilter()),
   ];
 }
 
@@ -65,4 +67,5 @@ class RouteNames {
   static const wishList = '/wishlist_page';
   static const resetPassword = '/reset_password';
   static const storyPost = '/story_post';
+  static const detailedFilter = '/detailed_filter_page';
 }

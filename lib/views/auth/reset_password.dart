@@ -163,6 +163,7 @@ final controller = Get.find<ResetpasswordController>();
                                         child: Column(
                                           children: [
                                             TextFormField(
+                                              obscureText: _secureText,
                                               controller: controller.oldPassowrdController,
                                               //     validator: (e) {
                                               //   if (e!.isEmpty) {
@@ -176,8 +177,8 @@ final controller = Get.find<ResetpasswordController>();
                                               decoration: InputDecoration(
                                                 fillColor: Colors.grey.shade100,
                                                 filled: true,
-                                                hintText: "Password",
-                                                labelText: "Password",
+                                                hintText: "OldPassword",
+                                                labelText: "OldPassword",
                                                 border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
@@ -188,6 +189,7 @@ final controller = Get.find<ResetpasswordController>();
                                                   child: Icon(Icons.password,
                                                       color: Colors.black),
                                                 ),
+                                                
                                                 suffixIcon: IconButton(
                                                   onPressed: showHide,
                                                   icon: Icon(_secureText
@@ -200,6 +202,7 @@ final controller = Get.find<ResetpasswordController>();
                                               height: 30,
                                             ),
                                             TextFormField(
+                                              obscureText: _secureText,
                                               controller: controller.passowrdController,
                                               //     validator: (e) {
                                               //   if (e!.isEmpty) {
@@ -237,6 +240,7 @@ final controller = Get.find<ResetpasswordController>();
                                               height: 30,
                                             ),
                                             TextFormField(
+                                              obscureText: _secureText,
                                               controller: controller.conformPasswordController,
                                               //     validator: (e) {
                                               //   if (e!.isEmpty) {

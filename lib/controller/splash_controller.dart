@@ -13,7 +13,7 @@ class SplashController extends BaseController{
   checkLogin(){
     
     Future.delayed(Duration(seconds: 2)).then((value) {
-      Get.toNamed(RouteNames.wishList);
+      Get.toNamed(RouteNames.detailedFilter);
       // if(appPreference.accessToken != null && appPreference.accessToken!.isEmpty){
       //   Get.toNamed(RouteNames.welcome);
       // }else{

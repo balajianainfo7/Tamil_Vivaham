@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coolicons/coolicons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,10 +8,18 @@ import 'package:thirumanam/controller/wishlist_controller.dart';
 import 'package:thirumanam/models/proposal_model.dart';
 import 'package:thirumanam/models/received_proprosal_model.dart';
 import 'package:thirumanam/models/wishList_model.dart';
+import 'package:thirumanam/widget/search_recevied.dart';
 
 
-class WishListReceived extends GetView {
+class WishListReceived extends StatefulWidget {
+   @override
+  WishListReceivedState createState() => WishListReceivedState();
+}
 
+class WishListReceivedState extends State<WishListReceived> {
+  List<wishListProprosalModel> books = [];
+  String query = '';
+  Timer? debouncer;
     TextEditingController SearchController = TextEditingController(text: '');
     final controller = Get.find<WishListController>();
     List<ProposalProfileModel>? dataModel;
@@ -28,6 +38,36 @@ class WishListReceived extends GetView {
     return 'just now';
   }
 }
+
+ @override
+  void initState() {
+    super.initState();
+
+    init();
+  }
+
+  @override
+  void dispose() {
+    debouncer?.cancel();
+    super.dispose();
+  }
+
+  void debounce(
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 1000),
+  }) {
+    if (debouncer != null) {
+      debouncer!.cancel();
+    }
+
+    debouncer = Timer(duration, callback);
+  }
+
+  Future init() async {
+    final books = await controller.fetchWishListProposal(query);
+
+    setState(() => this.books = books);
+  }
 
 DateTime time1 = DateTime.now();
   @override
@@ -114,7 +154,7 @@ DateTime time1 = DateTime.now();
             width: MediaQuery.of(context).size.width,
             child: Container(
         child: FutureBuilder<List<wishListProprosalModel>>(
-          future: controller.fetchWishListProposal(),
+          future: controller.fetchWishListProposal(''),
           builder: (context, snapshot){
         if(snapshot.hasData){
           
@@ -224,6 +264,21 @@ DateTime time1 = DateTime.now();
   }
 
   
+ Widget buildSearch() => SearchWidget(
+        text: query,
+        hintText: 'Title or Author Name',
+        onChanged: searchBook,
+      );
 
+  Future searchBook(String query) async => debounce(() async {
+        final books = await controller.fetchWishListProposal(query);
+
+        if (!mounted) return;
+
+        setState(() {
+          this.query = query;
+          this.books = books;
+        });
+      });
 
 }

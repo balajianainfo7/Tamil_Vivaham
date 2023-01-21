@@ -19,23 +19,22 @@ class WishListController extends BaseController{
   void onInit() {
     super.onInit();
     // isLoading.value = true;
-    fetchWishListProposal();
+    fetchWishListProposal('');
   }
 
-Future<List<wishListProprosalModel>> fetchWishListProposal() async {
+Future<List<wishListProprosalModel>> fetchWishListProposal(String query) async {
      final url = RestApiClient().getallWishlist;
     print(url);
 
     final response = await http.get(Uri.parse(url.toString()), headers: <String, String>{
       "Content-Type": "application/json",
       'x-access-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjgyODYzLCJleHAiOjE2NzQyODY0NjN9.rzdyx6Dn4kgjbcBHKLgymaCamKlpjFOZpz_KNwxvafY'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjkyOTc1LCJleHAiOjE2NzQyOTY1NzV9.7_tOrZbcQ4RNdRT6C91AjxzyNMhIhcWRemwXsr3dEOE'
     });
 
     final Map<String, dynamic> body = json.decode(response.body);
     if(response.statusCode == 200){
-
-
+        
       // appPreference.accessToken = body["data"];
         print("balaji");
           }
@@ -56,7 +55,7 @@ Future<List<wishListProprosalModel>> fetchWishListProposal() async {
                         headers: <String, String>{
                           'Content-type': 'application/json; charset=UTF-8',
                           'x-access-token':
-                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjgyODYzLCJleHAiOjE2NzQyODY0NjN9.rzdyx6Dn4kgjbcBHKLgymaCamKlpjFOZpz_KNwxvafY",
+                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjkyOTc1LCJleHAiOjE2NzQyOTY1NzV9.7_tOrZbcQ4RNdRT6C91AjxzyNMhIhcWRemwXsr3dEOE",
                         },
                         body: jsonEncode(<String, String>{
                           "wishuserId": id.toString(),
@@ -84,7 +83,7 @@ Future<List<wishListProprosalModel>> fetchWishListProposal() async {
                         headers: <String, String>{
                           'Content-type': 'application/json; charset=UTF-8',
                           'x-access-token':
-                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjgyODYzLCJleHAiOjE2NzQyODY0NjN9.rzdyx6Dn4kgjbcBHKLgymaCamKlpjFOZpz_KNwxvafY",
+                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0MjkyOTc1LCJleHAiOjE2NzQyOTY1NzV9.7_tOrZbcQ4RNdRT6C91AjxzyNMhIhcWRemwXsr3dEOE",
                         },
                         body: jsonEncode(<String, String>{
                           "wishuserId": id.toString(),
