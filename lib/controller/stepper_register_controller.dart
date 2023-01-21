@@ -104,12 +104,22 @@ bool? veri;
   }else if(confirmPassowrdController.text.isEmpty){
     showSnackBar("Enter Confirm Password", context);
   }
-  else{
-    print(appPreference.verified);
+  else if(isEmail(emailController.text)){
+    
+  if(Utils().isPasswordEmail(passwordController.text)){
+    showSnackBar("Password must atleast contain 6 and one Special characters", context);
+  }else if(Utils().isPasswordEmail(confirmPassowrdController.text)){
+    showSnackBar("Password must atleast contain 6 and one Special characters", context);
+  }else{
+       print(appPreference.verified);
       print("objecaaat");
       print(registerAPI(context));
       registerAPI(context);
       // registerAPI(context);
+  }
+  }
+  else{
+    showSnackBar("Please check the fields", context);
     }
   
 }
@@ -206,7 +216,7 @@ forgotEmailAPI(context) async {
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
-                                              child: Icon(Icons.people,
+                                              child: Icon(Icons.email,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -233,7 +243,7 @@ forgotEmailAPI(context) async {
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
-                                              child: Icon(Icons.people,
+                                              child: Icon(Icons.verified,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -355,7 +365,7 @@ forgotPhoneAPI(context) async {
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
-                                              child: Icon(Icons.people,
+                                              child: Icon(Icons.phone,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -383,7 +393,7 @@ forgotPhoneAPI(context) async {
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
-                                              child: Icon(Icons.people,
+                                              child: Icon(Icons.verified,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -437,6 +447,7 @@ verifyPhoneAPI(context) async {
          
 
           Navigator.pop(context);
+          showSuccessSnackBar("Basic Details verified Succesfully", context);
           print("object");
           
       }else{
@@ -448,6 +459,8 @@ verifyPhoneAPI(context) async {
   });
 
 }
+
+
 
 
 

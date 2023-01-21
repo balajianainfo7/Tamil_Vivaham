@@ -73,6 +73,14 @@ dependencies:
   toggle_list: ^0.2.1
   expansion_tile_card: ^2.0.0
   animated_custom_dropdown: ^1.2.2
+  eva_icons_flutter: ^3.1.0
+  icon_forest: ^1.1.8
+  coolicons: ^1.0.0
+  moment_dart: ^0.14.0
+  time_ago_provider: ^4.2.0
+  carousel_indicator: ^1.0.6
+  like_button: ^2.0.5
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:

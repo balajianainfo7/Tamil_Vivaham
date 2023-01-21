@@ -7,38 +7,35 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:thirumanam/controller/verify_otp_controller.dart';
-import 'package:thirumanam/views/forgot%20password/change_password.dart';
+import 'package:thirumanam/controller/change_password_controller.dart';
 import 'package:validators/validators.dart';
 
-import '../../resources/app_colors.dart';
 import '../../widget/quardentic_curve.dart';
+import '../auth/login_page.dart';
 
-class VerifyPassowrdOtp extends StatefulWidget {
-  const VerifyPassowrdOtp({super.key});
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
 
   @override
-  State<VerifyPassowrdOtp> createState() => VerifyPassowrdOtpState();
+  State<ChangePassword> createState() => ChangePasswordState();
 }
 
-class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
-  final controller = Get.find<verifyOtpController>();
-
+class ChangePasswordState extends State<ChangePassword> {
   RegExp _email_phone = new RegExp(r'^(?:\d{10}|\w+@\w+\.\w{2,3})$');
   bool isEmailandPhone(String str) {
     return _email_phone.hasMatch(str);
   }
 
   bool isEmailCorrect = false;
-  String mobileNumber = '';
-  String verify = "FORGOT_PASSWORD";
-  @override
-  void initState() {
-    super.initState();
-    mobileNumber = '';
-    verify = "FORGOT_PASSWORD";
-  }
+  bool _secureText = true;
+  bool? remember = false;
 
+  showHide() {
+    setState(() {
+      _secureText = !_secureText;
+    });
+  }
+final controller = Get.find<ChangepasswordController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -134,8 +131,8 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(
-                                        right: 200, bottom: 50, left: 20),
-                                    child: Text("Verify Otp",
+                                        right: 200, bottom: 50, left: 30),
+                                    child: Text("Change Password",
                                         style: GoogleFonts.nunito(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -149,9 +146,9 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                     children: [
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 10, left: 15),
+                                            const EdgeInsets.only(right: 40),
                                         child: Text(
-                                            "Enter OTP code sent to you mobile verification code",
+                                            "Please Enter the new password below fields",
                                             style: GoogleFonts.nunito(
                                                 textStyle: Theme.of(context)
                                                     .textTheme
@@ -167,8 +164,7 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                             TextFormField(
                                               maxLines: 1,
                                               // maxLength: 10,
-                                              controller:
-                                                  controller.controller.mobileController,
+                                              controller:controller.controller.mobileController,
                                               decoration: InputDecoration(
                                                 fillColor: Colors.grey.shade100,
                                                 filled: true,
@@ -182,22 +178,7 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                suffixIcon: controller
-                                                            .isEmailCorrect ==
-                                                        false
-                                                    ? Icon(
-                                                        Icons.close_sharp,
-                                                        color: Colors.red,
-                                                      )
-                                                    : controller.isEmailCorrect ==
-                                                            "true"
-                                                        ? Icon(
-                                                            Icons.done,
-                                                            color: Colors.green,
-                                                          )
-                                                        : Container(
-                                                            width: 0,
-                                                          ),
+                                                
                                                 prefixIcon: Padding(
                                                   padding: EdgeInsets.only(
                                                       left: 20, right: 15),
@@ -208,67 +189,79 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 40,
+                                              height: 30,
                                             ),
                                             TextFormField(
-                                              maxLines: 1,
-                                              // maxLength: 10,
-                                              controller:
-                                                  controller.otpController,
+                                              controller: controller.passowrdController,
+                                              //     validator: (e) {
+                                              //   if (e!.isEmpty) {
+                                              //     return "Password Can't be Empty";
+                                              //   }
+                                              // },
+                                              // obscureText: _secureText,
+                                              // onSaved: (e) => password = e!,
+                                              style: TextStyle(),
+
                                               decoration: InputDecoration(
                                                 fillColor: Colors.grey.shade100,
                                                 filled: true,
-                                                hintText: "Otp Validation",
-                                                labelText: "Otp Validation",
-                                                hintStyle: TextStyle(
-                                                    fontFamily: "nunto"),
-                                                labelStyle: TextStyle(
-                                                    fontFamily: "nunto"),
+                                                hintText: "Password",
+                                                labelText: "Password",
                                                 border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                // suffixIcon: controller.isEmailCorrect == false
-                                                //     ? Icon(
-                                                //         Icons.close_sharp,
-                                                //         color: Colors.red,
-                                                //       )
-                                                //     : controller.isEmailCorrect == "true"?
-                                                //     Icon(
-                                                //         Icons.done,
-                                                //         color: Colors.green,
-                                                //       ):Container(width: 0,),
                                                 prefixIcon: Padding(
                                                   padding: EdgeInsets.only(
                                                       left: 20, right: 15),
-                                                  child: Icon(
-                                                      Icons.verified_outlined,
+                                                  child: Icon(Icons.password,
                                                       color: Colors.black),
+                                                ),
+                                                suffixIcon: IconButton(
+                                                  onPressed: showHide,
+                                                  icon: Icon(_secureText
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility),
                                                 ),
                                               ),
                                             ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            TextFormField(
+                                              controller: controller.conformPasswordController,
+                                              //     validator: (e) {
+                                              //   if (e!.isEmpty) {
+                                              //     return "Password Can't be Empty";
+                                              //   }
+                                              // },
+                                              // obscureText: _secureText,
+                                              // onSaved: (e) => password = e!,
+                                              style: TextStyle(),
 
-//                         OTPTextField(
-//                           // controller: controller.otpController,
-//   length: 4,
-//   width: MediaQuery.of(context).size.width,
-//   fieldWidth: 40,
-//   style: TextStyle(
-//     fontSize: 17
-//   ),
-//   textFieldAlignment: MainAxisAlignment.spaceAround,
-//   fieldStyle: FieldStyle.box,
-//   onChanged: (value) {
-//     value = controller.otpController.toString();
-//     if(value.length == 4){
-//       FocusScope.of(context).nextFocus();
-//       print("completed"+ value);
-
-//     }
-
-//   },
-
-// ),
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.grey.shade100,
+                                                filled: true,
+                                                hintText: "Confirm Password",
+                                                labelText: "Confirm Password",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                prefixIcon: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 20, right: 15),
+                                                  child: Icon(Icons.password,
+                                                      color: Colors.black),
+                                                ),
+                                                suffixIcon: IconButton(
+                                                  onPressed: showHide,
+                                                  icon: Icon(_secureText
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility),
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -299,8 +292,10 @@ class VerifyPassowrdOtpState extends State<VerifyPassowrdOtp> {
                                                 gradient: LinearGradient(
                                                     begin: Alignment.centerLeft,
                                                     end: Alignment.centerRight,
-                                                    colors:
-                                                        AppColors.buttonColor)),
+                                                    colors: [
+                                                      Color(0xfffbb448),
+                                                      Color(0xfff7892b)
+                                                    ])),
                                             child: Text(
                                               'Submit',
                                               style: TextStyle(

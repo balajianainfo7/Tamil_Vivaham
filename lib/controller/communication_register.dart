@@ -64,6 +64,7 @@ communicationRegisterAPI(context) async {
           controller.currentStep = 3;
           print(controller.currentStep = 3);
           // Get.toNamed(RouteNames.welcome);
+          showSuccessSnackBar("Address Details verified Succesfully", context);
           print("balaji");
       }else{
         showSnackBar(res["message"].toString(), context);

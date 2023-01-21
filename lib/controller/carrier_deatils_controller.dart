@@ -53,6 +53,7 @@ CarrierRegisterAPI(context) async {
           controller.currentStep = 5;
           print(controller.currentStep = 5);
           // Get.toNamed(RouteNames.welcome);
+          showSuccessSnackBar("Carrier Details verified Succesfully", context);
           print("balaji");
       }else{
         showSnackBar(res["message"].toString(), context);

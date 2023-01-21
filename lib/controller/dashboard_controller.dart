@@ -30,7 +30,7 @@ class DashboardController extends BaseController{
     http.get(
         RestApiClient().allUsers,
         headers: {
-          "x-access-token": appPreference.accessToken!
+          "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYmVlMDdjOWQ0MGQ5ZDBlMzI0MzBkIiwiaWF0IjoxNjczNTIyOTU1LCJleHAiOjE2NzM1MjY1NTV9._UniZl3H7F3TUfThTJuyGhLbPXD8_yZOelBe9O6g0oo"
         }).then((value) {
       print("getAllUsersAPI Response: ${value.body}");
       final res = jsonDecode(value.body);
@@ -105,6 +105,7 @@ class DashboardController extends BaseController{
     });
   }
 
+  
   // setDummyHomeData(){
   //   HomeProfileModel model = HomeProfileModel(
   //     id: 1,

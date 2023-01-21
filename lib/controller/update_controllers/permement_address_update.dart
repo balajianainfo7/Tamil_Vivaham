@@ -12,7 +12,7 @@ import 'package:thirumanam/utils/utils.dart';
 import 'package:validators/validators.dart';
 
 
-class AddressUpdateController extends BaseController{
+class PermenentAddressUpdateController extends BaseController{
   final controller = Get.find<StepperRegisterController>();
   TextEditingController DoorNoController = TextEditingController(text: '');
   TextEditingController StreetController = TextEditingController(text: '');
@@ -21,7 +21,7 @@ class AddressUpdateController extends BaseController{
   TextEditingController DistrictController = TextEditingController(text: '');
   TextEditingController StateController = TextEditingController(text: '');
   TextEditingController CountryController = TextEditingController(text: '');
-  TextEditingController NationalityController = TextEditingController(text: '');
+  
  
   checkInput(context){
   if(DoorNoController.text.isEmpty){
@@ -38,34 +38,32 @@ class AddressUpdateController extends BaseController{
     showSnackBar("Enter State Details", context);
   }else if(CountryController.text.isEmpty){
     showSnackBar("Enter Country Details", context);
-  }else if(NationalityController.text.isEmpty){
-    showSnackBar("Enter Nationality Details", context);
   }else{
       print("objecaaat");
-      print(AddressUpdateControllerRegisterAPI(context));
-      AddressUpdateControllerRegisterAPI(context);
+      print(PermenentUpdateControllerRegisterAPI(context));
+      PermenentUpdateControllerRegisterAPI(context);
       // registerAPI(context);
   }
   
 }
 
-AddressUpdateControllerRegisterAPI(context) async {
+PermenentUpdateControllerRegisterAPI(context) async {
   final headers = {"x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYmVlMDdjOWQ0MGQ5ZDBlMzI0MzBkIiwiaWF0IjoxNjczMzQ1NzA2LCJleHAiOjE2NzMzNDkzMDZ9.OR-AVIkZbQp3_Z4aSNWNVR3JarHozjifFT39b6ZdW-8"};
   final params = {"door_no": DoorNoController.text, "street": StreetController.text, "area": AreaController.text, "city": CityController.text, "district":DistrictController.text
-  ,"state": StateController.text, "country": CountryController.text, "nationality": NationalityController.text};
+  ,"state": StateController.text, "country": CountryController.text};
   
-  print("Address Address API Params: ${params}");
+  print("Permenent Address API Params: ${params}");
   http.post(
-      RestApiClient().communcationAddressEdit,
+      RestApiClient().permenentAddressEdit,
       body: jsonEncode(params), headers: headers).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("value");
     print(value);
-    print("Address Address: ${res.toString()}");
+    print("Permenent Address: ${res.toString()}");
     if (res != null) {
       if (res.isNotEmpty && res["status"].toString() != 410) {
           appPreference.accessToken = res["data"].toString();
-          showSuccessSnackBar("Address Details Updated Succesfully", context);
+          showSuccessSnackBar("Permenent Address Details Updated Succesfully", context);
         Get.toNamed(RouteNames.profile);
           
       }else{

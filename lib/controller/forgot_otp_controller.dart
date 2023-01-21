@@ -29,13 +29,11 @@ checkInput(context){
 forgotOtpAPI(context) async {
   final params = {"emailphone": mobileController.text, "verification_for":verify
           };
-          final headers = {
-            "x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNhNzEzMjMzYjY1YWQ4YzFkMzczNjhmIiwiaWF0IjoxNjcyODE3Njc1LCJleHAiOjE2NzI4MjEyNzV9.W0A-o8eqyWk0xuUSey7ko9L1RgPprJXz24F8xObwDpg"
-          };
+          
   print("Forgot Password API Params: ${params}");
   http.post(
       RestApiClient().otpCreate,
-      body: params, headers: headers).then((value) {
+      body: params).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("Forgot Password Response: ${res.toString()}");
     if (res != null) {
@@ -44,6 +42,7 @@ forgotOtpAPI(context) async {
           print("Verified: ${res['data']["verified"]}");
           // appPreference.accessToken = res["data"];
           appPreference.accessToken = res["data"];
+          showSuccessSnackBar("Otp Sent Succesfully", context);
           
           print("Token: ${res["data"]}");
           

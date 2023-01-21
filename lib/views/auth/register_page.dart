@@ -412,6 +412,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                     dropdownColor: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
                     value: controller.dropdownValue,
+                    
                     onChanged: (String? newValue) {
                       setState(() {
                         controller.dropdownValue = newValue!;
@@ -663,7 +664,7 @@ class _RegisterAuthState extends State<RegisterAuth> {
                                                   ) : Container(width: 0,),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: 20, right: 15),
-                        child: Icon(Icons.people, color: Colors.black),
+                        child: Icon(Icons.format_list_numbered, color: Colors.black),
                       ),
                     ),
                   ),
@@ -737,6 +738,8 @@ class _RegisterAuthState extends State<RegisterAuth> {
                     textInputAction: TextInputAction.done,
                     maxLines: 1,
                     decoration: InputDecoration(
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
                       labelText: "Mobile Number",
                       hintStyle: TextStyle(fontFamily: "nunto"),
                       labelStyle: TextStyle(

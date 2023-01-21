@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thirumanam/resources/app_routes.dart';
 import 'package:thirumanam/utils/api_config.dart';
 import 'package:thirumanam/utils/utils.dart';
+import 'package:validators/validators.dart';
 import 'base_controller.dart';
 
 class RegisterController extends BaseController{
@@ -24,9 +25,9 @@ checkInput(context){
     showSnackBar("Enter email address", context);
   }else if(passwordController.text.isEmpty){
     showSnackBar("Enter password", context);
-  }else if(Utils().isValidEmail(emailController.text)){
-    if(passwordController.text.length < 6){
-      showSnackBar("Password must atleast contain 8 characters", context);
+  }else if(isEmail(emailController.text)){
+    if(Utils().isPasswordEmail(passwordController.text)){
+      showSnackBar("Password must atleast contain 6 and one Special characters", context);
     }else{
       loginAPI(context);
     }

@@ -213,7 +213,7 @@ class _LoginAuthState extends State<LoginAuth> {
                                          controller: controller.emailController,
                                           style: TextStyle(color: Colors.black),
                                           decoration: InputDecoration(
-                                            hintText: "FirstName",
+                                            hintText: "Email/PhoneNumber",
                                             hintStyle: TextStyle(color: AppColors.hintTextColor),
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -226,20 +226,20 @@ class _LoginAuthState extends State<LoginAuth> {
                                             // contentPadding:
                                             // const EdgeInsetsDirectional.only(
                                             //     start: 20, end: 10),
-                                            suffixIcon: controller.isEmailCorrect == "false"
-                                                ? Icon(
-                                                    Icons.close_sharp,
-                                                    color: Colors.red,
-                                                  )
-                                                :  controller.isEmailCorrect == "true"?
-                                                    Icon(
-                                                    Icons.done,
-                                                    color: Colors.green,
-                                                  ) : Container(width: 0,),
+                                            // suffixIcon: controller.isEmailCorrect == "false"
+                                            //     ? Icon(
+                                            //         Icons.close_sharp,
+                                            //         color: Colors.red,
+                                            //       )
+                                            //     :  controller.isEmailCorrect == "true"?
+                                            //         Icon(
+                                            //         Icons.done,
+                                            //         color: Colors.green,
+                                            //       ) : Container(width: 0,),
                                             prefixIcon: Padding(
                                               padding: EdgeInsets.only(
                                                   left: 20, right: 15),
-                                              child: Icon(Icons.people,
+                                              child: Icon(Icons.login,
                                                   color: Colors.black),
                                             ),
                                           ),

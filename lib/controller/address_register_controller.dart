@@ -43,6 +43,7 @@ adresssRegisterAPI(context) async {
           controller.currentStep = 2;
           print(controller.currentStep = 2);
           // Get.toNamed(RouteNames.welcome);
+          showSuccessSnackBar("Commication Details verified Succesfully", context);
           print("balaji");
       }else{
         showSnackBar(res["message"].toString(), context);

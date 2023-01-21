@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:thirumanam/controller/base_controller.dart';
 import 'package:thirumanam/controller/stepper_register_controller.dart';
+import 'package:thirumanam/resources/app_routes.dart';
 import 'package:thirumanam/utils/api_config.dart';
 import 'package:thirumanam/utils/utils.dart';
 import 'package:validators/validators.dart';
@@ -13,11 +14,32 @@ import 'package:validators/validators.dart';
 
 class PersonalUpdateController extends BaseController{
   final controller = Get.find<StepperRegisterController>();
-  TextEditingController DoshamController = TextEditingController(text: '');
+  TextEditingController HeightController = TextEditingController(text: '');
+  TextEditingController WieghtController = TextEditingController(text: '');
+  TextEditingController HobbiesController = TextEditingController(text: '');
+  TextEditingController SkinController = TextEditingController(text: '');
+  TextEditingController DeitController = TextEditingController(text: '');
+  TextEditingController MartialController = TextEditingController(text: '');
+  TextEditingController NoChildController = TextEditingController(text: '');
+  TextEditingController ChildStatusController = TextEditingController(text: '');
  
   checkInput(context){
-  if(DoshamController.text.isEmpty){
-    showSnackBar("Enter Dosham Details", context);
+  if(HeightController.text.isEmpty){
+    showSnackBar("Enter Height Details", context);
+  }else if(WieghtController.text.isEmpty){
+    showSnackBar("Enter Weight Details", context);
+  }else if(HeightController.text.isEmpty){
+    showSnackBar("Enter Hoobies Details", context);
+  }else if(SkinController.text.isEmpty){
+    showSnackBar("Enter Diet Details", context);
+  }else if(DeitController.text.isEmpty){
+    showSnackBar("Enter Skin Tone Details", context);
+  }else if(MartialController.text.isEmpty){
+    showSnackBar("Enter Martial Status Details", context);
+  }else if(NoChildController.text.isEmpty){
+    showSnackBar("Enter No of Children Details", context);
+  }else if(ChildStatusController.text.isEmpty){
+    showSnackBar("Enter Children Status Details", context);
   }else{
       print("objecaaat");
       print(PersonalUpdateControllerRegisterAPI(context));
@@ -28,13 +50,13 @@ class PersonalUpdateController extends BaseController{
 }
 
 PersonalUpdateControllerRegisterAPI(context) async {
-  final headers = {"x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiNmIyYjVmYWY1ZTU5MzQ0ZmViMTFjIiwiaWF0IjoxNjcyOTg4Mzg3LCJleHAiOjE2NzI5OTE5ODd9.8mNgZpSHjKW0I-D6zfSOMv3CijK8RovcFGy51WchOJI"};
-  final data = {"rasi": controller.dropdownValue22, "natchathiram": controller.dropdownValue23, "laknam": controller.dropdownValue24, "gothram": controller.dropdownValue25, "kuladeivam":controller.dropdownValue26
-  ,"dosham": controller.dropdownValue27, "dosham_details": DoshamController.text,};
-  final params ={ "personal_details":data};
+  final headers = {"x-access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYmVlMDdjOWQ0MGQ5ZDBlMzI0MzBkIiwiaWF0IjoxNjczMzQ1NzA2LCJleHAiOjE2NzMzNDkzMDZ9.OR-AVIkZbQp3_Z4aSNWNVR3JarHozjifFT39b6ZdW-8"};
+  final params = {"height": HeightController.text, "weight": WieghtController.text, "hobbies": HobbiesController.text, "diet": DeitController.text, "skin_tone":SkinController.text
+  ,"marital_details": MartialController.text, "no_of_children": NoChildController.text, "children_status": ChildStatusController.text};
+  
   print("Personal Address API Params: ${params}");
   http.post(
-      RestApiClient().registerUpdate,
+      RestApiClient().personalEdit,
       body: jsonEncode(params), headers: headers).then((value) {
     Map<String,dynamic> res = jsonDecode(value.body);
     print("value");
@@ -43,6 +65,8 @@ PersonalUpdateControllerRegisterAPI(context) async {
     if (res != null) {
       if (res.isNotEmpty && res["status"].toString() != 410) {
           appPreference.accessToken = res["data"].toString();
+          showSuccessSnackBar("Personal Details Updated Succesfully", context);
+        Get.toNamed(RouteNames.profile);
           
       }else{
         showSnackBar(res["message"].toString(), context);

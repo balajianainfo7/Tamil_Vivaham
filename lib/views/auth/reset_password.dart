@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:thirumanam/controller/change_password_controller.dart';
+import 'package:thirumanam/controller/reset_password_controller.dart';
 import 'package:validators/validators.dart';
 
 import '../../widget/quardentic_curve.dart';
@@ -33,7 +36,7 @@ class ResetPasswordState extends State<ResetPassword> {
       _secureText = !_secureText;
     });
   }
-
+final controller = Get.find<ResetpasswordController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -160,6 +163,44 @@ class ResetPasswordState extends State<ResetPassword> {
                                         child: Column(
                                           children: [
                                             TextFormField(
+                                              controller: controller.oldPassowrdController,
+                                              //     validator: (e) {
+                                              //   if (e!.isEmpty) {
+                                              //     return "Password Can't be Empty";
+                                              //   }
+                                              // },
+                                              // obscureText: _secureText,
+                                              // onSaved: (e) => password = e!,
+                                              // style: TextStyle(),
+
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.grey.shade100,
+                                                filled: true,
+                                                hintText: "Password",
+                                                labelText: "Password",
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                prefixIcon: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 20, right: 15),
+                                                  child: Icon(Icons.password,
+                                                      color: Colors.black),
+                                                ),
+                                                suffixIcon: IconButton(
+                                                  onPressed: showHide,
+                                                  icon: Icon(_secureText
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            TextFormField(
+                                              controller: controller.passowrdController,
                                               //     validator: (e) {
                                               //   if (e!.isEmpty) {
                                               //     return "Password Can't be Empty";
@@ -196,6 +237,7 @@ class ResetPasswordState extends State<ResetPassword> {
                                               height: 30,
                                             ),
                                             TextFormField(
+                                              controller: controller.conformPasswordController,
                                               //     validator: (e) {
                                               //   if (e!.isEmpty) {
                                               //     return "Password Can't be Empty";
@@ -235,11 +277,7 @@ class ResetPasswordState extends State<ResetPassword> {
                                         padding: const EdgeInsets.all(60.0),
                                         child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginAuth()));
+                                            controller.checkInput(context);
                                           },
                                           child: Container(
                                             width: MediaQuery.of(context)

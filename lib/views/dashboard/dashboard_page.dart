@@ -170,6 +170,7 @@ class DashboradPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 12),
                           child: HomeProfileCard(
                             title: controller.itemList[i].title,
+                            // title: controller.allUserModel.value.data![i].personalDetails?.firstName,
                             dataModel: controller.itemList[i].itemList,
                             onViewAllClicked: () => print("onViewAllClicked clicked"),
                           ),

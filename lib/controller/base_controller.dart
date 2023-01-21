@@ -58,6 +58,20 @@ class BaseController extends FullLifeCycleController with FullLifeCycleMixin {
     ));
   }
 
+  showSuccessSnackBar(String msg, context) {
+    hideSnackBar(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: AppColors.green,
+      content: Text(
+        msg,
+        style: const TextStyle(
+            color: AppColors.black,
+            fontSize: 12,
+            fontWeight: FontWeight.normal),
+      ),
+    ));
+  }
+
   showSnackBarWithRetry(String msg, Function calledFunction, context) {
     hideSnackBar(context);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
