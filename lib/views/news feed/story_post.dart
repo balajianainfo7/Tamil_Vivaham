@@ -1,4 +1,8 @@
 
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 import 'package:coolicons/coolicons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +14,8 @@ import 'package:thirumanam/models/proposal_model.dart';
 import 'package:thirumanam/models/received_proprosal_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
+import 'package:thirumanam/resources/app_colors.dart';
+import 'package:thirumanam/utils/api_config.dart';
 
 class StroyPost extends StatefulWidget {
   @override
@@ -19,10 +25,162 @@ class StroyPost extends StatefulWidget {
 class StroyPostState extends State<StroyPost> {
 
 final controller = Get.find<PostFeedController>();
+TextEditingController imageController = TextEditingController(text: '');
+
+
+XFile? image;
 
    int numberOfLikes = 10;
 
   int pageIndex = 0;
+
+  void _onAlertPress() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'images/one.png',
+                      width: 50,
+                    ),
+                    Text('Gallery'),
+                  ],
+                ),
+                onPressed: getGalleryImage,
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'images/one.png',
+                      width: 50,
+                    ),
+                    Text('Take Photo'),
+                  ],
+                ),
+                onPressed: getCameraImage,
+              ),
+            ],
+          );
+        });
+  }
+
+  Future getCameraImage() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final XFile? _image =
+        await imagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image = _image;
+      Navigator.pop(context);
+    });
+  }
+
+  //============================== Image from gallery
+  Future getGalleryImage() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final XFile? _image =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image = _image;
+      Navigator.pop(context);
+    });
+  }
+
+  Future<Map<String, dynamic>?> _uploadImage(XFile image) async {
+    
+    
+
+    final mimeTypeData =
+        lookupMimeType(image.path, headerBytes: [0xFF, 0xD8])!.split('/');
+
+    // Intilize the multipart request
+    final imageUploadRequest = http.MultipartRequest('POST', RestApiClient().postStory);
+
+    // Attach the file in the request
+    final file = await http.MultipartFile.fromPath('file', image.path);
+    print(file);
+    // Explicitly pass the extension of the image with request body
+    // Since image_picker has some bugs due which it mixes up
+    // image extension with file name like this filenamejpge
+    // Which creates some problem at the server side to manage
+    // or verify the file extension
+
+//    imageUploadRequest.fields['ext'] = mimeTypeData[1];
+
+    imageUploadRequest.files.add(file);
+    print(file);
+    imageUploadRequest.headers['Content-type'] = 'application/json';
+    imageUploadRequest.headers['Accept'] = 'application/json';
+    imageUploadRequest.headers['x-access-token'] =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXRhaWxzIjoiNjNiYzAzYjMzMTA1NTkxOGZhNTRlMDQzIiwiaWF0IjoxNjc0NDYzODYyLCJleHAiOjE2NzQ0Njc0NjJ9._0EMy8GFoYx3GUuFjo_5AxKSetlhd9M7iOR4rTm2vYk';
+
+    imageUploadRequest.fields['title'] = "AnAinfo";
+    imageUploadRequest.fields['content'] = imageController.text;
+    imageUploadRequest.fields['file'] = image.toString();
+
+    try {
+      final streamedResponse = await imageUploadRequest.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      print(imageUploadRequest);
+      print(streamedResponse);
+      print(response.body);
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      _resetState();
+      return responseData;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void _startUploading() async {
+    if (image != XFile ||
+        imageController.text != '') {
+      final Map<String, dynamic>? response = await _uploadImage(image!);
+
+      // Check if any error occured
+      if (response == null) {
+        showSuccessSnackBar("Post added successfully", context);
+      }
+    } else {
+      showSuccessSnackBar('Please Select a photo/content', context);
+    }
+  }
+
+  void _resetState() {
+    setState(() {
+       imageController.text;
+      
+    });
+  }
+
+  hideSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  }
+  showSuccessSnackBar(String msg, context) {
+    hideSnackBar(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: AppColors.green,
+      content: Text(
+        msg,
+        style: const TextStyle(
+            color: AppColors.black,
+            fontSize: 12,
+            fontWeight: FontWeight.normal),
+      ),
+    ));
+  }
 
    
 
@@ -145,7 +303,7 @@ final controller = Get.find<PostFeedController>();
                         child: Container(
                           width: 80,
                           child: TextField(
-                            controller: controller.contentController,
+                            controller: imageController,
                             style: TextStyle(
                                 color: Colors.white, fontFamily: "Raleway"),
                             decoration: InputDecoration(
@@ -187,7 +345,8 @@ final controller = Get.find<PostFeedController>();
                         SizedBox(width: 55,),
                         InkWell(
                           onTap: (){
-                            controller.selectedImages();
+                            
+                            _onAlertPress();
                             
                           },
                           child: Container(
@@ -223,7 +382,7 @@ final controller = Get.find<PostFeedController>();
                         ),
                         InkWell(
                           onTap: (){
-                            controller.checkInput(context);
+                            _startUploading();
                           },
                           child: Container(
                             margin: const EdgeInsets.all(5.0),

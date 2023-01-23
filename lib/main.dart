@@ -5,5 +5,6 @@ import 'package:thirumanam/app.dart';
 void main() async{
 
   runApp(App());
+  
 }
 
